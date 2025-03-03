@@ -12,6 +12,9 @@ import JobsPage from './pages/JobsPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
+
 
 const App = () => {
   return (
@@ -28,7 +31,10 @@ const App = () => {
         <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/dashboard/*" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
       </Routes>
+      <Footer/>
     </Router>
+    
+    
   );
 };
 

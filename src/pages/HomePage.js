@@ -23,8 +23,10 @@ function HomePage() {
           <h2>Application Tracking</h2>
           <p>Keep track of your job applications in one place.</p>
         </div>
-      </section>
+      </section>      
+      
     </div>
+    
   );
 }
 
