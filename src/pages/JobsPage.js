@@ -2,21 +2,24 @@ import React, { useState } from 'react';
 import { MapPin, Clock, Star } from 'lucide-react';
 import "../styles/jobs.css";
 
-interface Job {
-  id: number;
-  title: string;
-  company: string;
-  location: string;
-  type: string;
-  posted: string;
-  logo: string;
-}
+// Define the shape of a job object using JSDoc comments
+/**
+ * @typedef {Object} Job
+ * @property {number} id
+ * @property {string} title
+ * @property {string} company
+ * @property {string} location
+ * @property {string} type
+ * @property {string} posted
+ * @property {string} logo
+ */
 
 const JobsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
   
   // Mock data for jobs
-  const mockJobs: Job[] = [
+  /** @type {Job[]} */
+  const mockJobs = [
     {
       id: 1,
       title: "Regional Certified Facilitator",

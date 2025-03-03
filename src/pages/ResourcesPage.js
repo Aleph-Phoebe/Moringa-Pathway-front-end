@@ -4,21 +4,24 @@ import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
 
-interface Resource {
-  id: number;
-  title: string;
-  description: string;
-  type: string;
-  isPremium: boolean;
-  url: string;
-}
+// Define the shape of a resource object using JSDoc comments
+/**
+ * @typedef {Object} Resource
+ * @property {number} id
+ * @property {string} title
+ * @property {string} description
+ * @property {string} type
+ * @property {boolean} isPremium
+ * @property {string} url
+ */
 
 const ResourcesPage = () => {
   const { isPremium } = useAuth();
   const [activeCategory, setActiveCategory] = useState('all');
   
   // Mock resources data
-  const resources: Resource[] = [
+  /** @type {Resource[]} */
+  const resources = [
     {
       id: 1,
       title: "Resume Writing Guide",

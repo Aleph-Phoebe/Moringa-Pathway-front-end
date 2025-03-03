@@ -16,7 +16,7 @@ const UserDashboard = () => {
   const location = useLocation();
   
   // Create placeholder components for dashboard sections
-  const DashboardPlaceholder = ({ title }: { title: string }) => (
+  const DashboardPlaceholder = ({ title }) => (
     <div className="bg-white p-6 rounded-lg shadow-sm">
       <h2 className="text-xl font-semibold mb-4">{title}</h2>
       <p className="text-gray-600">This section is under development.</p>
