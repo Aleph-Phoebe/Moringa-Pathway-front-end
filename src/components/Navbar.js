@@ -7,7 +7,7 @@ import '../navbar.css';
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const { isAuthenticated, user, logout,  } = useAuth();
+  const { isAuthenticated, user, logout, isAdmin } = useAuth(); // Add isAdmin
   const navigate = useNavigate();
 
   const toggleMobileMenu = () => {

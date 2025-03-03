@@ -1,10 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
-import { 
-  Briefcase, Users, FileText, Bell, Settings, 
-  PlusCircle, List, User, LogOut 
-} from 'lucide-react';
+import { Briefcase, Users, FileText, Bell } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext'; // Import useAuth
 import '../styles/dashboard.css';
 
 // Admin dashboard sub-pages
