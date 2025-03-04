@@ -1,7 +1,7 @@
 import React from "react";
 import "../styles/homepage.css";
 import icon1 from "../assets/icon1.svg";
-import icon2 from "../assets/icon2.svg";
+import icon2 from "../assets/icon-2.svg";
 import icon31 from "../assets/icon31.svg";
 import logos from "../assets/logos.svg";
 import CompanyCard from "../components/CompanyCard";
@@ -19,7 +19,7 @@ function HomePage() {
       <div className="homepage">
         {/* Hero Section */}
         <header className="hero">
-          <img src="path/to/hero-image.png" alt="Hero Image" />
+          
           <h1>Welcome to Moringa Pathway</h1>
           <p>Your one-stop platform for career growth</p>
           <button className="cta-button">Get Started</button>
@@ -35,25 +35,25 @@ function HomePage() {
           <div className="steps-container">
             <div className="step">
               {/* Replace these with actual icons or images */}
-              <img src="path/to/icon1.png" alt="Create Account" />
+              <img src="../assets/icon-1.png" alt="Create Account" />
               <h3>Create Account</h3>
               <p>Register and set up your profile to get started.</p>
             </div>
 
             <div className="step">
-              <img src="path/to/icon2.png" alt="Upload Resume" />
+              <img src="../assets/icon-1.png" alt="Upload Resume" />
               <h3>Upload Resume</h3>
               <p>Showcase your skills and experience.</p>
             </div>
 
             <div className="step">
-              <img src="path/to/icon3.png" alt="Find Jobs" />
+              <img src="../assets/icon3.png" alt="Find Jobs" />
               <h3>Find Jobs</h3>
               <p>Browse our listings and discover new opportunities.</p>
             </div>
 
             <div className="step">
-              <img src="path/to/icon4.png" alt="Apply & Get Hired" />
+              <img src="../assets/icon-4.png" alt="Apply & Get Hired" />
               <h3>Apply & Get Hired</h3>
               <p>Take the next step in your career journey.</p>
             </div>
