@@ -73,7 +73,7 @@ const JobsPage = () => {
           Search by Job Title
         </div>
         <div className="search-box">
-          <img src="/src/assets/search.svg" alt="Search" />
+          <img src="./assets/search.svg" alt="Search" />
           <input 
             type="text" 
             placeholder="Job title or company"

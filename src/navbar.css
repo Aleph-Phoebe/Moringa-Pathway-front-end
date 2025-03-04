@@ -2,6 +2,7 @@
 .navbar {
   background-color: #0f2a5c;
   padding: 1rem 0;
+  top: 0px;
 }
 
 .navbar-container {
@@ -39,6 +40,12 @@
 
 .navbar-link:hover {
   color: #f97316;
+  text-decoration: underline;
+}
+
+.navbar-links a.active {
+  color: #f97316;
+  text-decoration: underline;
 }
 
 .navbar-buttons {

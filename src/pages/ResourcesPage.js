@@ -131,7 +131,7 @@ const ResourcesPage = () => {
             
             {resource.isPremium && !isPremium ? (
               <div className="premium-lock">
-                <Lock size={16} />
+                <Lock size={25} />
                 <span>Premium</span>
               </div>
             ) : (

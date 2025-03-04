@@ -4,6 +4,7 @@ import "../styles/about.css";
 function AboutPage() {
   return (
     <div className="about-page">
+      <img src="/assets/about-hero.jpg" alt="About Hero" />
       <h1>About Moringa Pathway</h1>
       <p>
         Moringa Pathway is a dedicated platform designed to help graduates
