@@ -1,15 +1,21 @@
 import React from "react";
-// Import your existing Navbar and Footer components
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
-
 import "../styles/homepage.css";
+import icon1 from "../assets/icon1.svg";
+import icon2 from "../assets/icon2.svg";
+import icon31 from "../assets/icon31.svg";
+import logos from "../assets/logos.svg";
+import CompanyCard from "../components/CompanyCard";
+
+const cardData = [
+  { icon: icon2, name: "Instagram", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: logos, name: "Tesla", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: icon31, name: "McDonald’s", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: icon1, name: "Apple", description: "The quick brown fox jumps over the lazy fox." },
+];
 
 function HomePage() {
   return (
     <>
-      
-
       <div className="homepage">
         {/* Hero Section */}
         <header className="hero">
@@ -69,9 +75,19 @@ function HomePage() {
             <p>Keep track of your job applications in one place.</p>
           </div>
         </section>
-      </div>
 
-      
+        {/* Company Cards Section */}
+        <section className="company-cards">
+          {cardData.map((card, index) => (
+            <CompanyCard
+              key={index}
+              icon={card.icon}
+              name={card.name}
+              description={card.description}
+            />
+          ))}
+        </section>
+      </div>
     </>
   );
 }

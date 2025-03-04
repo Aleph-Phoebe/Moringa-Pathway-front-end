@@ -73,7 +73,7 @@ const JobsPage = () => {
           Search by Job Title
         </div>
         <div className="search-box">
-          <img src="./assets/search.svg" alt="Search" />
+          <img src="/assets/search.svg" alt="Search" />
           <input 
             type="text" 
             placeholder="Job title or company"
@@ -109,11 +109,15 @@ const JobsPage = () => {
                   </div>
                 </div>
               </div>
-              <div className="mt-4 md:mt-0">
+              <div className="mt-4 md:mt-0 flex items-center space-x-4">
                 <button className="apply-button">
                   Apply Now
                 </button>
+                <button className="apply-button">
+                  Save Job
+                </button>
               </div>
+              
             </div>
           </div>
         ))}

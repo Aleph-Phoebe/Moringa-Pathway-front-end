@@ -108,7 +108,7 @@
   color: white;
   border: none;
   padding: 0.5rem 1rem;
-  border-radius: 0.375rem;
+  border-radius: 0.300rem;
   font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
@@ -118,3 +118,4 @@
 .apply-button:hover {
   background-color: #059669;
 }
+
