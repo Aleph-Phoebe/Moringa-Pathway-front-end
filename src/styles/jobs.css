@@ -1,7 +1,13 @@
+/* General styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .jobs-page {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+  display: flex;
 }
 
 .jobs-page h1 {
@@ -9,6 +15,17 @@
   color: #0f2a5c;
   margin-bottom: 1.5rem;
   text-align: center;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+}
+
+.sidebar h2 {
+  margin-bottom: 20px;
 }
 
 .search-container {
@@ -54,17 +71,44 @@
   color: #9ca3af;
 }
 
+.search-input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h3 {
+  margin-bottom: 10px;
+}
+
+.filter-section div,
+.filter-section select {
+  margin-bottom: 10px;
+}
+
+.jobs-list-container {
+  flex: 1;
+  padding: 20px;
+}
+
 .jobs-list {
-  display: grid;
-  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .job-card {
-  background-color: white;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
 }
 
 .job-card:hover {
@@ -74,21 +118,22 @@
 
 .job-title {
   font-size: 1.25rem;
-  font-weight: 600;
+  font-weight: bold;
   color: #0f2a5c;
   margin-bottom: 0.5rem;
 }
 
 .job-company {
-  font-size: 0.875rem;
-  color: #6b7280;
+  font-size: 1rem;
+  color: #666;
   margin-bottom: 1rem;
 }
 
 .job-details {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  gap: 10px;
+  margin-top: 10px;
   margin-bottom: 1.5rem;
 }
 
@@ -96,7 +141,7 @@
   display: flex;
   align-items: center;
   font-size: 0.875rem;
-  color: #6b7280;
+  color: #666;
 }
 
 .job-detail svg {
@@ -104,18 +149,82 @@
 }
 
 .apply-button {
-  background-color: #10b981;
-  color: white;
+  padding: 10px 20px;
   border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 0.300rem;
-  font-size: 0.875rem;
-  font-weight: 500;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
 .apply-button:hover {
-  background-color: #059669;
+  background-color: #0056b3;
+}
+
+.save-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+  background-color: #218838;
+}
+
+/* Modal styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  width: 500px;
+  max-width: 90%;
+  position: relative;
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
+}
+
+.modal-content.show {
+  transform: translateY(0);
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.modal-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
 }
 

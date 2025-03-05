@@ -1,16 +1,17 @@
 import React from "react";
 import "../styles/homepage.css";
-import icon1 from "../assets/icon1.svg";
+import icon from "../assets/icon.svg";
 import icon2 from "../assets/icon-2.svg";
-import icon31 from "../assets/icon31.svg";
+import icon31 from "../assets/icon-31.svg";
+import tesla from "../assets/tesla.svg";
 import logos from "../assets/logos.svg";
 import CompanyCard from "../components/CompanyCard";
 
 const cardData = [
-  { icon: icon2, name: "Instagram", description: "The quick brown fox jumps over the lazy fox." },
-  { icon: logos, name: "Tesla", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: logos, name: "Instagram", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: tesla, name: "Tesla", description: "The quick brown fox jumps over the lazy fox." },
   { icon: icon31, name: "McDonald’s", description: "The quick brown fox jumps over the lazy fox." },
-  { icon: icon1, name: "Apple", description: "The quick brown fox jumps over the lazy fox." },
+  { icon: icon, name: "Apple", description: "The quick brown fox jumps over the lazy fox." },
 ];
 
 function HomePage() {
@@ -19,7 +20,6 @@ function HomePage() {
       <div className="homepage">
         {/* Hero Section */}
         <header className="hero">
-          
           <h1>Welcome to Moringa Pathway</h1>
           <p>Your one-stop platform for career growth</p>
           <button className="cta-button">Get Started</button>
@@ -27,33 +27,32 @@ function HomePage() {
 
         {/* How It Works Section */}
         <section className="how-it-works">
-          <div img="../assets/jobs-picture.png"><img src="./assets/jobs-picture.png" alt="How It Works" />
+          <div>
             <h2>How It Works</h2>
             <p>Follow these simple steps to land your dream job:</p>
           </div>
           
           <div className="steps-container">
             <div className="step">
-              {/* Replace these with actual icons or images */}
-              <img src="../assets/icon-1.png" alt="Create Account" />
+              <img src={icon} alt="Create Account" />
               <h3>Create Account</h3>
               <p>Register and set up your profile to get started.</p>
             </div>
 
             <div className="step">
-              <img src="../assets/icon-1.png" alt="Upload Resume" />
+              <img src={icon2} alt="Upload Resume" />
               <h3>Upload Resume</h3>
               <p>Showcase your skills and experience.</p>
             </div>
 
             <div className="step">
-              <img src="../assets/icon3.png" alt="Find Jobs" />
+              <img src={icon31} alt="Find Jobs" />
               <h3>Find Jobs</h3>
               <p>Browse our listings and discover new opportunities.</p>
             </div>
 
             <div className="step">
-              <img src="../assets/icon-4.png" alt="Apply & Get Hired" />
+              <img src={logos} alt="Apply & Get Hired" />
               <h3>Apply & Get Hired</h3>
               <p>Take the next step in your career journey.</p>
             </div>
@@ -61,7 +60,9 @@ function HomePage() {
         </section>
 
         {/* Features Section */}
+        <h1>Jobs Available</h1>
         <section className="features">
+          
           <div className="feature">
             <h2>Job Listings</h2>
             <p>Find the best job opportunities tailored for you.</p>
@@ -74,6 +75,9 @@ function HomePage() {
             <h2>Application Tracking</h2>
             <p>Keep track of your job applications in one place.</p>
           </div>
+        </section>
+        <section>
+          <img src="../assets/jobs-picture.png" alt="jobs" />
         </section>
 
         {/* Company Cards Section */}

@@ -8,16 +8,19 @@ body {
 
 /* HomePage Container */
 .homepage {
+  
   text-align: center;
   padding: 50px 20px;
+
 }
 
 /* Hero Section */
 .hero {
-  /*background: url('path/to/hero-image.png') no-repeat center center/cover;*/
-  color: white;
-  padding: 4rem 2rem;
-  border-radius: 10px;
+  background: url('../assets/moringa-logo.png') no-repeat center center/cover;
+  opacity: 0.9;
+  
+  padding: 6rem 2rem;
+  border-radius: 5px;
   margin-bottom: 30px;
 }
 
@@ -51,6 +54,8 @@ body {
 }
 
 /* How It Works Section */
+
+
 .how-it-works {
   padding: 2rem;
   background-color: #f8f9fa;

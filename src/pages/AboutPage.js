@@ -1,10 +1,11 @@
 import React from "react";
 import "../styles/about.css";
+import "../assets/heros.png";
 
 function AboutPage() {
   return (
-    <div className="about-page">
-      <img src="/assets/about-hero.jpg" alt="About Hero" />
+    <div className="about-page ">
+      <div className="about-page-image"><img src="../assets/heros.png" alt="about the heros" /></div>
       <h1>About Moringa Pathway</h1>
       <p>
         Moringa Pathway is a dedicated platform designed to help graduates
