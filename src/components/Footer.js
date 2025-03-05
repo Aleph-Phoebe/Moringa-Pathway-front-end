@@ -1,11 +1,20 @@
 import React from "react";
+import styled from "styled-components";
 
-function Footer() {
+const Footer = () => {
   return (
-    <footer style={{ padding: "10px", background: "#333", color: "white", textAlign: "center" }}>
-      <p>© {new Date().getFullYear()} Moringa Pathway. All rights reserved.</p>
-    </footer>
+    <FooterContainer>
+      <p>&copy; {new Date().getFullYear()} Moringa Pathway. All Rights Reserved.</p>
+    </FooterContainer>
   );
-}
+};
 
 export default Footer;
+
+const FooterContainer = styled.footer`
+  text-align: center;
+  padding: 20px;
+  background: #2a2a72;
+  color: white;
+  margin-top: 20px;
+`;
