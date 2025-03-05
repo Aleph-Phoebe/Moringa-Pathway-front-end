@@ -1,9 +1,13 @@
 import React from "react";
 import "../styles/about.css";
+import heroImage from "../assets/heros.png";
 
 function AboutPage() {
   return (
     <div className="about-page">
+      <div className="about-page-image">
+        <img src={heroImage} alt="About the heroes" />
+      </div>
       <h1>About Moringa Pathway</h1>
       <p>
         Moringa Pathway is a dedicated platform designed to help graduates
@@ -23,12 +27,12 @@ function AboutPage() {
         <h2>Meet Our Team</h2>
         <div className="team-members">
           <div className="member">
-            <img src="/assets/member1.jpg" alt="Team Member 1" />
+            <img src="/assets/member1.png" alt="Team Member 1" />
             <h3>Jane Doe</h3>
             <p>Founder & CEO</p>
           </div>
           <div className="member">
-            <img src="/assets/member2.jpg" alt="Team Member 2" />
+            <img src="/assets/member2.png" alt="Team Member 2" />
             <h3>John Smith</h3>
             <p>Head of Careers</p>
           </div>
