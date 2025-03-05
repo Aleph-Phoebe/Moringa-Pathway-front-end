@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Menu, User, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import '../navbar.css';
+import '../styles/navbar.css';
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
-  const { isAuthenticated, user, logout, isAdmin } = useAuth(); // Add isAdmin
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false); // Use useState for profileMenuOpen
+  const { isAuthenticated, user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
@@ -26,17 +26,20 @@ function Navbar() {
   return (
     <header className="navbar">
       <div className="navbar-container">
-        <Link to="/" className="navbar-logo">Moringa Pathway</Link>
+        <Link to={isAdmin ? "/admin" : "/"} className="navbar-logo">Moringa Pathway</Link>
         
         <div className={`navbar-menu ${mobileMenuOpen ? 'active' : ''}`}>
           <nav className="navbar-links">
-            <Link to="/" className="navbar-link">Home</Link>
+            <Link to={isAdmin ? "/admin" : "/"} className="navbar-link">Home</Link>
             <Link to="/jobs" className="navbar-link">Jobs</Link>
             <Link to="/resources" className="navbar-link">Resources</Link>
             <Link to="/about" className="navbar-link">About</Link>
             <Link to="/contact" className="navbar-link">Contact</Link>
             {isAdmin && (
               <Link to="/admin" className="navbar-link">Admin</Link>
+            )}
+            {isAuthenticated && (
+              <Link to="/dashboard" className="navbar-link">Dashboard</Link>
             )}
           </nav>
         </div>

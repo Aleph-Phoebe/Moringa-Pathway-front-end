@@ -129,6 +129,7 @@ const JobsPage = () => {
             <option value="last7days">Last 7 days</option>
             <option value="last14days">Last 14 days</option>
             <option value="last30days">Last 30 days</option>
+            <option value="ealier">ealier</option>
           </select>
         </div>
 
@@ -137,7 +138,7 @@ const JobsPage = () => {
           <input
             type="range"
             min="0"
-            max="200000"
+            max="2000000"
             value={salary}
             onChange={(e) => setSalary(e.target.value)}
           />

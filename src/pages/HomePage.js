@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "../styles/homepage.css";
 import icon from "../assets/icon.svg";
 import icon2 from "../assets/icon-2.svg";
@@ -22,7 +23,7 @@ function HomePage() {
         <header className="hero">
           <h1>Welcome to Moringa Pathway</h1>
           <p>Your one-stop platform for career growth</p>
-          <button className="cta-button">Get Started</button>
+          <Link to="/login" className="cta-button">Get Started</Link>
         </header>
 
         {/* How It Works Section */}

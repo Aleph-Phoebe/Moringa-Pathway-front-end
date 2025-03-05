@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import '../../styles/jobapplications.css';
+import ApplicationDetailsModal from '../../components/ApplicationDetailsModal';
 
 const JobApplications = () => {
   const [applications, setApplications] = useState([
@@ -26,6 +28,8 @@ const JobApplications = () => {
     // Add more job applications as needed
   ]);
 
+  const [selectedApplication, setSelectedApplication] = useState(null);
+
   return (
     <div className="job-applications">
       <h1>My Job Applications</h1>
@@ -38,9 +42,15 @@ const JobApplications = () => {
             <p>{application.company}</p>
             <p>Status: {application.status}</p>
             <p>Date Applied: {application.dateApplied}</p>
-            <button>View Details</button>
+            <button onClick={() => setSelectedApplication(application)}>View Details</button>
           </div>
         ))}
+      </div>
+
+      <div className={`modal-overlay ${selectedApplication ? 'show' : ''}`}>
+        <div className={`modal-content ${selectedApplication ? 'show' : ''}`}>
+          <ApplicationDetailsModal application={selectedApplication} onClose={() => setSelectedApplication(null)} />
+        </div>
       </div>
     </div>
   );
