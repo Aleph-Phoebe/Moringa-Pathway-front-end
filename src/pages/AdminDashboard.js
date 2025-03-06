@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { Briefcase, Users, FileText, Bell } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext'; // Import useAuth
+import { useAuth } from '../contexts/AuthContext';
 import '../styles/dashboard.css';
 
 // Admin dashboard sub-pages
@@ -14,14 +14,6 @@ import Announcements from './admin/Announcements';
 const AdminDashboard = () => {
   const { user } = useAuth();
   const location = useLocation();
-  
-  // Create placeholder components for admin sections
-  const AdminPlaceholder = ({ title }) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <p className="text-gray-600">This admin section is under development.</p>
-    </div>
-  );
 
   return (
     <div className="dashboard-container">

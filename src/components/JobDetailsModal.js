@@ -8,11 +8,17 @@ const JobDetailsModal = ({ job, onClose }) => {
       <div className="modal-content show">
         <button className="close-button" onClick={onClose}>X</button>
         <h2>{job.title}</h2>
-        <p><strong>Company:</strong> {job.company}</p>
+        <p><strong>Company:</strong> {job.employer}</p>
         <p><strong>Location:</strong> {job.location}</p>
-        <p><strong>Type:</strong> {job.type}</p>
-        <p><strong>Posted:</strong> {job.posted}</p>
-        <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna vitae libero bibendum tincidunt.</p>
+        <p><strong>Type:</strong> {job.job_type}</p>
+        <p><strong>Posted:</strong> {new Date(job.date_posted).toLocaleDateString()}</p>
+        <p><strong>Description:</strong> {job.description}</p>
+        <p><strong>Benefits:</strong> {job.benefits}</p>
+        <p><strong>Skills Required:</strong> {job.skills_required}</p>
+        <p><strong>Salary:</strong> {job.salary_min} - {job.salary_max}</p>
+        <p><strong>Application Deadline:</strong> {new Date(job.application_deadline).toLocaleDateString()}</p>
+        <p><strong>Employer Email:</strong> {job.employer_email}</p>
+        <p><strong>Employer Phone:</strong> {job.employer_phone}</p>
         <div className="modal-buttons">
           <button className="apply-button">Apply Now</button>
           <button className="save-button">Save Job</button>

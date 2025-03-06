@@ -38,11 +38,11 @@ const UserDashboard = () => {
         
         <nav className="dashboard-nav">
           <Link 
-            to="/dashboard" 
-            className={`nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
+            to="/dashboard/profile" 
+            className={`nav-item ${location.pathname === '/dashboard/profile' ? 'active' : ''}`}
           >
-            <Briefcase size={20} />
-            <span>Dashboard</span>
+            <User size={20} />
+            <span>Profile</span>
           </Link>
           <Link 
             to="/dashboard/applications" 
@@ -65,13 +65,7 @@ const UserDashboard = () => {
             <BookOpen size={20} />
             <span>Resources</span>
           </Link>
-          <Link 
-            to="/dashboard/profile" 
-            className={`nav-item ${location.pathname === '/dashboard/profile' ? 'active' : ''}`}
-          >
-            <User size={20} />
-            <span>Profile</span>
-          </Link>
+          
         </nav>
       </div>
       

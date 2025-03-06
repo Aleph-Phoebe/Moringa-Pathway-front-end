@@ -5,23 +5,11 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/premium.css';
 
 const PremiumPage = () => {
-  const { isPremium, upgradeToPremium } = useAuth();
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { isPremium } = useAuth();
   const navigate = useNavigate();
   
-  const handleUpgrade = async () => {
-    setIsProcessing(true);
-    try {
-      await upgradeToPremium();
-      // Simulate payment processing delay
-      setTimeout(() => {
-        setIsProcessing(false);
-        navigate('/dashboard');
-      }, 2000);
-    } catch (error) {
-      setIsProcessing(false);
-      console.error('Upgrade failed:', error);
-    }
+  const handleUpgrade = () => {
+    navigate('/payment');
   };
   
   if (isPremium) {
@@ -102,48 +90,12 @@ const PremiumPage = () => {
           </ul>
         </div>
         
-        <div className="payment-section">
-          <h2>Payment Information</h2>
-          <div className="payment-form">
-            <div className="form-group">
-              <label>Card Number</label>
-              <div className="card-input">
-                <CreditCard size={20} />
-                <input type="text" placeholder="1234 5678 9012 3456" />
-              </div>
-            </div>
-            
-            <div className="form-row">
-              <div className="form-group">
-                <label>Expiry Date</label>
-                <input type="text" placeholder="MM/YY" />
-              </div>
-              <div className="form-group">
-                <label>CVC</label>
-                <input type="text" placeholder="123" />
-              </div>
-            </div>
-            
-            <div className="form-group">
-              <label>Name on Card</label>
-              <input type="text" placeholder="John Doe" />
-            </div>
-          </div>
-        </div>
-        
         <button 
           className="premium-button"
           onClick={handleUpgrade}
-          disabled={isProcessing}
         >
-          {isProcessing ? (
-            <>Processing Payment...</>
-          ) : (
-            <>
-              <Lock size={16} />
-              Upgrade Now
-            </>
-          )}
+          <Lock size={16} />
+          Upgrade Now
         </button>
         
         <p className="payment-disclaimer">

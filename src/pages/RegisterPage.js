@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -25,8 +25,8 @@ const RegisterPage = () => {
     setIsLoading(true);
     
     try {
-      await register(name, email, password);
-      navigate('/dashboard');
+      await register(username, email, password);
+      navigate('/login');
     } catch (err) {
       setError('Failed to create an account. Please try again.');
     } finally {
@@ -44,12 +44,12 @@ const RegisterPage = () => {
         
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="username">Full Name</label>
             <input
               type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
               placeholder="Enter your full name"
             />

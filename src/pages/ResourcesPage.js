@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
@@ -18,10 +18,11 @@ import '../styles/resources.css';
 const ResourcesPage = () => {
   const { isPremium } = useAuth();
   const [activeCategory, setActiveCategory] = useState('all');
-  
+  const [resources, setResources] = useState([]);
+  const navigate = useNavigate();
+
   // Mock resources data
-  /** @type {Resource[]} */
-  const resources = [
+  const demoResources = [
     {
       id: 1,
       title: "Resume Writing Guide",
@@ -71,7 +72,25 @@ const ResourcesPage = () => {
       url: "#"
     }
   ];
-  
+
+  useEffect(() => {
+    // Fetch data from the backend
+    const fetchResources = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/get_resources'); // Replace with your backend endpoint
+        const data = await response.json();
+        // Merge the fetched data with the demo data
+        setResources([...demoResources, ...data]);
+      } catch (error) {
+        console.error('Error fetching resources:', error);
+        // If there's an error, fall back to demo data
+        setResources(demoResources);
+      }
+    };
+
+    fetchResources();
+  }, []);
+
   // Filter resources based on active category and premium status
   const filteredResources = resources.filter(resource => {
     if (activeCategory !== 'all' && resource.type !== activeCategory) {
@@ -79,6 +98,10 @@ const ResourcesPage = () => {
     }
     return true;
   });
+
+  const handleUpgradeClick = () => {
+    navigate('/premium');
+  };
 
   return (
     <div className="resources-page">
@@ -92,9 +115,9 @@ const ResourcesPage = () => {
           <div className="premium-content">
             <h2>Upgrade to Premium</h2>
             <p>Get access to exclusive resources, interview questions with model answers, and more.</p>
-            <Link to="/premium" className="premium-button">
+            <button className="premium-button" onClick={handleUpgradeClick}>
               Upgrade Now
-            </Link>
+            </button>
           </div>
         </div>
       )}

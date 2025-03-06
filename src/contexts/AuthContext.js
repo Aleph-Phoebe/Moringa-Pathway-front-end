@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -12,57 +13,48 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [token, setToken] = useState(null);
+
+  // Set the base URL for axios
+  axios.defaults.baseURL = 'http://127.0.0.1:5000'; // Replace with your backend URL
+
+  // Include the JWT token in the headers of authenticated requests
+  useEffect(() => {
+    if (token) {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    } else {
+      delete axios.defaults.headers.common['Authorization'];
+    }
+  }, [token]);
 
   const login = async (email, password) => {
-    // This would normally be an API call
-    // For demo purposes, we'll just simulate a successful login
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === 'user@example.com' && password === 'password') {
-          setUser({
-            id: '1',
-            name: 'Demo User',
-            email: 'user@example.com',
-            role: 'user'
-          });
-          resolve();
-        } else if (email === 'admin@example.com' && password === 'password') {
-          setUser({
-            id: '2',
-            name: 'Admin User',
-            email: 'admin@example.com',
-            role: 'admin'
-          });
-          resolve();
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
+    const response = await axios.post('/login', { email, password });
+    const { access_token } = response.data;
+    setToken(access_token);
+    const user = parseJwt(access_token);
+    setUser(user);
   };
 
-  const register = async (name, email, password) => {
-    // This would normally be an API call
-    // For demo purposes, we'll just simulate a successful registration
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        setUser({
-          id: '3',
-          name,
-          email,
-          role: 'user'
-        });
-        resolve();
-      }, 1000);
-    });
+  const register = async (username, email, password) => {
+    await axios.post('/register', { username, email, password });
   };
 
   const logout = () => {
     setUser(null);
+    setToken(null);
+  };
+
+  const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
   };
 
   const value = {
     user,
+    token,
     login,
     register,
     logout,

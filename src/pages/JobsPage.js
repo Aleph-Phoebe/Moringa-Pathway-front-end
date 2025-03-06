@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MapPin, Clock, Star } from 'lucide-react';
 import "../styles/jobs.css";
 import JobDetailsModal from '../components/JobDetailsModal';
@@ -8,64 +8,91 @@ import JobDetailsModal from '../components/JobDetailsModal';
  * @typedef {Object} Job
  * @property {number} id
  * @property {string} title
- * @property {string} company
+ * @property {string} employer
  * @property {string} location
- * @property {string} type
- * @property {string} posted
- * @property {string} logo
+ * @property {string} job_type
+ * @property {string} date_posted
+ * @property {string} description
+ * @property {string} benefits
+ * @property {string} employer_email
+ * @property {string} employer_phone
+ * @property {number} salary_min
+ * @property {number} salary_max
+ * @property {string} skills_required
+ * @property {string} application_deadline
  */
 
 const JobsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [salary, setSalary] = useState(50000);
+  const [salary, setSalary] = useState('');
+  const [skills, setSkills] = useState('');
+  const [deadline, setDeadline] = useState('');
   const [selectedJob, setSelectedJob] = useState(null);
-  
+  const [jobs, setJobs] = useState([]);
+
   // Mock data for jobs
-  /** @type {Job[]} */
-  const mockJobs = [
+  const demoJobs = [
     {
       id: 1,
-      title: "Regional Certified Facilitator",
-      company: "Moringa School",
+      title: "Software Engineer",
+      employer: "Safaricom",
       location: "Nairobi, Kenya",
-      type: "Full-time",
-      posted: "2 days ago",
-      logo: "RC"
+      job_type: "Full-time",
+      date_posted: "Thu, 06 Feb 2025 03:53:06 GMT",
+      description: "We are looking for a skilled software engineer with expertise in Python, JavaScript, and cloud technologies. Responsibilities include designing and developing software solutions, collaborating with teams, and ensuring code quality.",
+      benefits: "Health insurance, Paid vacation, Retirement plan",
+      employer_email: "hr@safaricom.co.ke",
+      employer_phone: "+254 765985794",
+      salary_min: 900000,
+      salary_max: 1200000,
+      skills_required: "Python, JavaScript, Cloud Computing, Agile",
+      application_deadline: "Sat, 05 Apr 2025 03:53:06 GMT"
     },
     {
       id: 2,
-      title: "Select A Brand Director",
-      company: "Moringa",
-      location: "Nairobi",
-      type: "Full-time",
-      posted: "3 days ago",
-      logo: "SA"
-    },
-    {
-      id: 3,
-      title: "Tanzania Partner Facilitator",
-      company: "Moringa",
-      location: "Tanzania",
-      type: "Full-time",
-      posted: "5 days ago",
-      logo: "TP"
-    },
-    {
-      id: 4,
-      title: "Senior Software Developer",
-      company: "Moringa Tech",
-      location: "Remote",
-      type: "Full-time",
-      posted: "1 day ago",
-      logo: "MT"
+      title: "Marketing Manager",
+      employer: "Jumia Kenya",
+      location: "Mombasa, Kenya",
+      job_type: "Full-time",
+      date_posted: "Thu, 06 Feb 2025 03:53:06 GMT",
+      description: "We are looking for a passionate marketing manager to lead our team. Experience in digital marketing, campaign strategies, and team leadership required.",
+      benefits: "Healthcare, 401(k), Paid holidays",
+      employer_email: "careers@jumia.co.ke",
+      employer_phone: "+254 789808238",
+      salary_min: 700000,
+      salary_max: 950000,
+      skills_required: "Marketing Strategy, Digital Marketing, SEO, Leadership",
+      application_deadline: "Mon, 05 May 2025 03:53:06 GMT"
     }
   ];
 
-  // Filter jobs based on search term
-  const filteredJobs = mockJobs.filter(job => 
-    job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.company.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(() => {
+    // Fetch data from the backend
+    const fetchJobs = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5000/get_jobs'); // Replace with your backend endpoint
+        const data = await response.json();
+        // Merge the fetched data with the demo data
+        setJobs([...demoJobs, ...data]);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+        // If there's an error, fall back to demo data
+        setJobs(demoJobs);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  // Filter jobs based on search term, skills, salary, and application deadline
+  const filteredJobs = jobs.filter(job => {
+    const matchesSearchTerm = job.title.toLowerCase().includes(searchTerm.toLowerCase()) || job.employer.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSkills = skills === '' || job.skills_required.toLowerCase().includes(skills.toLowerCase());
+    const matchesSalary = salary === '' || job.salary_max >= parseInt(salary);
+    const matchesDeadline = deadline === '' || (new Date(job.application_deadline) <= new Date(new Date().setMonth(new Date().getMonth() + parseInt(deadline))));
+
+    return matchesSearchTerm && matchesSkills && matchesSalary && matchesDeadline;
+  });
 
   return (
     <div className="jobs-page">
@@ -74,75 +101,24 @@ const JobsPage = () => {
         <input type="text" placeholder="Job title or company" className="search-input" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
 
         <div className="filter-section">
-          <h3>Category</h3>
-          <div>
-            <input type="checkbox" id="commerce" name="category" value="commerce" />
-            <label htmlFor="commerce">Commerce</label>
-          </div>
-          <div>
-            <input type="checkbox" id="telecommunication" name="category" value="telecommunication" />
-            <label htmlFor="telecommunication">Telecommunication</label>
-          </div>
-          <div>
-            <input type="checkbox" id="education" name="category" value="education" />
-            <label htmlFor="education">Education</label>
-          </div>
-        </div>
-
-        <div className="filter-section">
-          <h3>Job Type</h3>
-          <div>
-            <input type="checkbox" id="fulltime" name="jobType" value="fulltime" />
-            <label htmlFor="fulltime">Full-time</label>
-          </div>
-          <div>
-            <input type="checkbox" id="parttime" name="jobType" value="parttime" />
-            <label htmlFor="parttime">Part-time</label>
-          </div>
-          <div>
-            <input type="checkbox" id="freelance" name="jobType" value="freelance" />
-            <label htmlFor="freelance">Freelance</label>
-          </div>
-          <div>
-            <input type="checkbox" id="seasonal" name="jobType" value="seasonal" />
-            <label htmlFor="seasonal">Seasonal</label>
-          </div>
-          <div>
-            <input type="checkbox" id="fixedprice" name="jobType" value="fixedprice" />
-            <label htmlFor="fixedprice">Fixed-price</label>
-          </div>
-        </div>
-
-        <div className="filter-section">
-          <h3>Experience Level</h3>
-          <select>
-            <option value="entry">Entry Level</option>
-            <option value="mid">Mid Level</option>
-            <option value="senior">Senior Level</option>
-          </select>
-        </div>
-
-        <div className="filter-section">
-          <h3>Date Posted</h3>
-          <select>
-            <option value="last24hours">Last 24 hours</option>
-            <option value="last7days">Last 7 days</option>
-            <option value="last14days">Last 14 days</option>
-            <option value="last30days">Last 30 days</option>
-            <option value="ealier">ealier</option>
-          </select>
+          <h3>Skills</h3>
+          <input type="text" placeholder="Skills required" className="search-input" value={skills} onChange={(e) => setSkills(e.target.value)} />
         </div>
 
         <div className="filter-section">
           <h3>Salary</h3>
-          <input
-            type="range"
-            min="0"
-            max="2000000"
-            value={salary}
-            onChange={(e) => setSalary(e.target.value)}
-          />
-          <div>Salary: ${salary}</div>
+          <input type="number" placeholder="Minimum salary" className="search-input" value={salary} onChange={(e) => setSalary(e.target.value)} />
+        </div>
+
+        <div className="filter-section">
+          <h3>Application Deadline</h3>
+          <select value={deadline} onChange={(e) => setDeadline(e.target.value)}>
+            <option value="">Any</option>
+            <option value="1">Due in a month</option>
+            <option value="6">Due in 6 months</option>
+            <option value="12">Due in a year</option>
+            <option value="13">Greater than a year</option>
+          </select>
         </div>
       </div>
 
@@ -156,21 +132,21 @@ const JobsPage = () => {
                 <div className="flex items-start space-x-4">
                   <div className="bg-gray-100 p-3 rounded-lg">
                     <div className="w-10 h-10 flex items-center justify-center">
-                      <span className="font-bold text-gray-500">{job.logo}</span>
+                      <span className="font-bold text-gray-500">{job.employer.charAt(0)}</span>
                     </div>
                   </div>
                   <div>
                     <h3 className="job-title">{job.title}</h3>
-                    <p className="job-company">{job.company}</p>
+                    <p className="job-company">{job.employer}</p>
                     <div className="job-details">
                       <span className="job-detail">
                         <MapPin size={14} className="mr-1" /> {job.location}
                       </span>
                       <span className="job-detail">
-                        <Clock size={14} className="mr-1" /> {job.type}
+                        <Clock size={14} className="mr-1" /> {job.job_type}
                       </span>
                       <span className="job-detail">
-                        <Star size={14} className="mr-1" /> Posted {job.posted}
+                        <Star size={14} className="mr-1" /> Posted {new Date(job.date_posted).toLocaleDateString()}
                       </span>
                     </div>
                   </div>

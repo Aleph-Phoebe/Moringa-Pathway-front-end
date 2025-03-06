@@ -14,7 +14,7 @@ import AdminRoute from './components/AdminRoute';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import PremiumPage from './pages/PremiumPage';
-
+import PaymentPage from './pages/PaymentPage';
 
 
 const App = () => {
@@ -32,6 +32,7 @@ const App = () => {
         <Route path="/admin/*" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
         <Route path="/dashboard/*" element={<ProtectedRoute><UserDashboard /></ProtectedRoute>} />
         <Route path="/premium" element={<ProtectedRoute><PremiumPage /></ProtectedRoute>} />
+        <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
       </Routes>
       <Footer/>
     </Router>

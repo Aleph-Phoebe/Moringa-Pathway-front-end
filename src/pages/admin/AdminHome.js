@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 
 const AdminHome = () => {
@@ -10,22 +11,22 @@ const AdminHome = () => {
       <p>This is the admin dashboard home page. Here you can find an overview of administrative tasks and quick access to various sections.</p>
       
       <div className="admin-overview">
-        <div className="overview-card">
+        <Link to="/admin/jobs" className="overview-card">
           <h2>Manage Jobs</h2>
           <p>View and manage job postings.</p>
-        </div>
-        <div className="overview-card">
+        </Link>
+        <Link to="/admin/resources" className="overview-card">
           <h2>Manage Resources</h2>
           <p>View and manage resources.</p>
-        </div>
-        <div className="overview-card">
+        </Link>
+        <Link to="/admin/users" className="overview-card">
           <h2>Manage Users</h2>
           <p>View and manage user accounts.</p>
-        </div>
-        <div className="overview-card">
+        </Link>
+        <Link to="/admin/announcements" className="overview-card">
           <h2>Announcements</h2>
           <p>View and manage announcements.</p>
-        </div>
+        </Link>
       </div>
     </div>
   );
