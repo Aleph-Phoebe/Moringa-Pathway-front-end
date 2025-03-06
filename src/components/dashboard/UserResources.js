@@ -5,7 +5,6 @@ import { useAuth } from '../../contexts/AuthContext';
 const UserResources = () => {
   const { isPremium } = useAuth();
   
-  // Mock data for resources
   const resources = [
     {
       id: 1,

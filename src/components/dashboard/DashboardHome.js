@@ -109,7 +109,7 @@ const DashboardHome = () => {
             </div>
             <div className="resource-details">
               <h3>Senior Software Developer</h3>
-              <p>Moringa Tech • Remote • Full-time</p>
+              <p> Alison Tech • Remote • Full-time</p>
               <a href="/jobs" className="resource-link">View Job</a>
             </div>
           </div>

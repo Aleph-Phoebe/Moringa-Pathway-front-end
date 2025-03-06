@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import heroImage from "../assets/hero-image.png"; // Ensure this image is available
+import heroImage from "../assets/heros.png"; // Ensure this image is available
 
 const Hero = () => {
   return (

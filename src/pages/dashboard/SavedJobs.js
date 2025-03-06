@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const SavedJobs = () => {
-  const [savedJobs, _setSavedJobs] = useState([
+  const [savedJobs, setSavedJobs] = useState([
     {
       id: 1,
       jobTitle: 'Software Engineer',
@@ -26,12 +26,8 @@ const SavedJobs = () => {
       type: 'Full-time',
       dateSaved: '2025-01-25',
     },
+    // Add more saved jobs as needed
   ]);
-
-  // Function to remove a saved job
-  const handleRemove = (id) => {
-    setSavedJobs(savedJobs.filter((job) => job.id !== id));
-  };
 
   return (
     <div className="saved-jobs">
@@ -47,7 +43,7 @@ const SavedJobs = () => {
             <p>{job.type}</p>
             <p>Date Saved: {job.dateSaved}</p>
             <button>View Details</button>
-            <button onClick={() => handleRemove(job.id)}>Remove</button>
+            <button>Remove</button>
           </div>
         ))}
       </div>
