@@ -3,7 +3,7 @@ import '../../styles/jobapplications.css';
 import ApplicationDetailsModal from '../../components/ApplicationDetailsModal';
 
 const JobApplications = () => {
-  const [applications, setApplications] = useState([
+  const [applications, _setApplications] = useState([
     {
       id: 1,
       jobTitle: 'Software Engineer',
@@ -25,7 +25,6 @@ const JobApplications = () => {
       status: 'Rejected',
       dateApplied: '2025-01-25',
     },
-    // Add more job applications as needed
   ]);
 
   const [selectedApplication, setSelectedApplication] = useState(null);

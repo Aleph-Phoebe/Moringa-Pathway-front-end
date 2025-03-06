@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Resources = () => {
-  const [resources, setResources] = useState([
+  const [resources, _setResources] = useState([
     {
       id: 1,
       title: 'Resume Writing Guide',
@@ -23,7 +23,6 @@ const Resources = () => {
       type: 'Template',
       isPremium: true,
     },
-    // Add more resources as needed
   ]);
 
   return (
