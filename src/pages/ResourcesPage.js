@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
+import ResourceDetailsModal from '../components/ResourceDetailsModal';
 
 // Define the shape of a resource object using JSDoc comments
 /**
@@ -19,6 +20,7 @@ const ResourcesPage = () => {
   const { isPremium } = useAuth();
   const [activeCategory, setActiveCategory] = useState('all');
   const [resources, setResources] = useState([]);
+  const [selectedResource, setSelectedResource] = useState(null);
   const navigate = useNavigate();
 
   // Mock resources data
@@ -77,7 +79,7 @@ const ResourcesPage = () => {
     // Fetch data from the backend
     const fetchResources = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:5000/get_resources'); // Replace with your backend endpoint
+        const response = await fetch('http://127.0.0.1:5000/get_job_resources'); // Replace with your backend endpoint
         const data = await response.json();
         // Merge the fetched data with the demo data
         setResources([...demoResources, ...data]);
@@ -145,7 +147,7 @@ const ResourcesPage = () => {
       
       <div className="resources-grid">
         {filteredResources.map(resource => (
-          <div key={resource.id} className={`resource-card ${resource.isPremium ? 'premium' : ''}`}>
+          <div key={resource.id} className={`resource-card ${resource.isPremium ? 'premium' : ''}`} onClick={() => setSelectedResource(resource)}>
             <div className="resource-icon">
               <BookOpen size={24} />
             </div>
@@ -164,6 +166,12 @@ const ResourcesPage = () => {
             )}
           </div>
         ))}
+      </div>
+
+      <div className={`modal-overlay ${selectedResource ? 'show' : ''}`}>
+        <div className={`modal-content ${selectedResource ? 'show' : ''}`}>
+          <ResourceDetailsModal resource={selectedResource} onClose={() => setSelectedResource(null)} />
+        </div>
       </div>
     </div>
   );
