@@ -5,7 +5,7 @@ const MyApplications = () => {
   const [filterOpen, setFilterOpen] = useState(false);
   const [statusFilter, setStatusFilter] = useState('all');
   
-  // Mock data
+  // Data entry
   const applications = [
     { 
       id: 1,
@@ -30,7 +30,7 @@ const MyApplications = () => {
     }
   ];
 
-  // Filter applications based on status
+  // Filter the applications based on status
   const filteredApplications = applications.filter(application => 
     statusFilter === 'all' || application.status.toLowerCase() === statusFilter
   );

@@ -5,7 +5,7 @@ const HeroSection = () => {
   return (
     <HeroContainer>
       <HeroContent>
-        <h1>Empowering Moringa Graduates for Career Success</h1>
+        <h1>Connecting Talent with Opportunity: Your Gateway to Career Success</h1>
         <p>Find jobs, track applications, and access exclusive career resources.</p>
         <Buttons>
           <a href="/jobs">Explore Jobs</a>
