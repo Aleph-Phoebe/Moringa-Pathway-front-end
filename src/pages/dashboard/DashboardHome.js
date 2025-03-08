@@ -10,8 +10,10 @@ const DashboardHome = () => {
   return (
     <div className="dashboard-home">
       <h1>Welcome, {user?.name}</h1>
-      <p>This is your dashboard home page. Here you can find an overview of your activities and quick access to various sections.</p>
-      
+      <p>
+        This is your dashboard home page. Here you can find an overview of your activities and quick access to various sections.
+      </p>
+
       <div className="dashboard-overview">
         <Link to="/dashboard/applications" className="overview-card">
           <Briefcase size={24} />

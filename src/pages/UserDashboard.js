@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, BookOpen, Clock, User, Settings } from 'lucide-react';
+import { Briefcase, BookOpen, Clock, User } from 'lucide-react'; // Removed Settings
 import '../styles/dashboard.css';
 
 // Dashboard sub-pages
@@ -14,14 +14,6 @@ import Profile from './dashboard/Profile';
 const UserDashboard = () => {
   const { user } = useAuth();
   const location = useLocation();
-  
-  // Create placeholder components for dashboard sections
-  const DashboardPlaceholder = ({ title }) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h2 className="text-xl font-semibold mb-4">{title}</h2>
-      <p className="text-gray-600">This section is under development.</p>
-    </div>
-  );
 
   return (
     <div className="dashboard-container">

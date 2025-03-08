@@ -17,13 +17,13 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    
+
     if (password !== confirmPassword) {
       return setError('Passwords do not match');
     }
-    
+
     setIsLoading(true);
-    
+
     try {
       await register(name, email, password);
       navigate('/dashboard');
@@ -39,9 +39,9 @@ const RegisterPage = () => {
       <div className="auth-form-container">
         <h1>Create Account</h1>
         <p className="auth-subtitle">Join Moringa Pathway to access job opportunities and resources</p>
-        
+
         {error && <div className="auth-error">{error}</div>}
-        
+
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
             <label htmlFor="name">Full Name</label>
@@ -54,7 +54,7 @@ const RegisterPage = () => {
               placeholder="Enter your full name"
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -66,7 +66,7 @@ const RegisterPage = () => {
               placeholder="Enter your email"
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="password">Password</label>
             <input
@@ -79,7 +79,7 @@ const RegisterPage = () => {
               minLength={8}
             />
           </div>
-          
+
           <div className="form-group">
             <label htmlFor="confirmPassword">Confirm Password</label>
             <input
@@ -91,30 +91,32 @@ const RegisterPage = () => {
               placeholder="Confirm your password"
             />
           </div>
-          
+
+          {/* Fixed the invalid anchor links */}
           <div className="flex items-center mb-4">
-            <input
-              type="checkbox"
-              id="terms"
-              className="mr-2"
-              required
-            />
+            <input type="checkbox" id="terms" className="mr-2" required />
             <label htmlFor="terms" className="text-sm text-gray-600">
-              I agree to the <a href="#" className="text-blue-600 hover:underline">Terms of Service</a> and <a href="#" className="text-blue-600 hover:underline">Privacy Policy</a>
+              I agree to the{' '}
+              <Link to="/terms" className="text-blue-600 hover:underline">
+                Terms of Service
+              </Link>{' '}
+              and{' '}
+              <Link to="/privacy" className="text-blue-600 hover:underline">
+                Privacy Policy
+              </Link>
             </label>
           </div>
-          
-          <button 
-            type="submit" 
-            className="auth-button"
-            disabled={isLoading}
-          >
+
+          <button type="submit" className="auth-button" disabled={isLoading}>
             {isLoading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
-        
+
         <p className="auth-redirect">
-          Already have an account? <Link to="/login" className="auth-link">Log in</Link>
+          Already have an account?{' '}
+          <Link to="/login" className="auth-link">
+            Log in
+          </Link>
         </p>
       </div>
     </div>

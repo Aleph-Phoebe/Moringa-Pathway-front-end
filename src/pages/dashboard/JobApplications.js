@@ -3,7 +3,7 @@ import '../../styles/jobapplications.css';
 import ApplicationDetailsModal from '../../components/ApplicationDetailsModal';
 
 const JobApplications = () => {
-  const [applications, _setApplications] = useState([
+  const [applications] = useState([
     {
       id: 1,
       jobTitle: 'Software Engineer',

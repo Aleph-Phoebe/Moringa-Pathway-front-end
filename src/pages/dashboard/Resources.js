@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Resources = () => {
-  const [resources, _setResources] = useState([
+  const [resources] = useState([
     {
       id: 1,
       title: 'Resume Writing Guide',
@@ -29,7 +29,7 @@ const Resources = () => {
     <div className="resources-page">
       <h1>Resources</h1>
       <p>Access career resources and guides.</p>
-      
+
       <div className="resources-list">
         {resources.map((resource) => (
           <div key={resource.id} className="resource-card">
