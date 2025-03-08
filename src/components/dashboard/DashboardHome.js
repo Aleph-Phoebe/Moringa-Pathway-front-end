@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
-import AuthContext from '../../contexts/AuthContext'; // Ensure correct path
-import { Briefcase, BookOpen, Star, Bell, Shield } from 'lucide-react';
+import { useAuth } from '../../contexts/AuthContext';
+import { Briefcase, BookOpen, Star, Bell, Shield, Users, FileText } from 'lucide-react';
 
 const DashboardHome = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
 
   // Redirect to login if not authenticated
   if (!user) {
@@ -15,20 +15,16 @@ const DashboardHome = () => {
     <div className="dashboard-home">
       <div className="dashboard-welcome">
         <h1>Welcome back, {user.name}!</h1>
-        <p>Here's an overview of your job search activities</p>
+        <p>{user.role === 'admin' ? "Manage platform activities" : "Here's an overview of your job search"}</p>
       </div>
 
-      {/* Different content for Admins vs Normal Users */}
-      {user.role === 'admin' ? (
-        <AdminDashboard />
-      ) : (
-        <UserDashboard />
-      )}
+      {/* Admin sees AdminDashboard, Users see UserDashboard */}
+      {user.role === 'admin' ? <AdminDashboard /> : <UserDashboard />}
     </div>
   );
 };
 
-// Component for normal users
+// 🟢 USER DASHBOARD (For normal users)
 const UserDashboard = () => {
   const stats = [
     { label: 'Applications', value: 12, icon: <Briefcase size={20} /> },
@@ -39,6 +35,7 @@ const UserDashboard = () => {
 
   return (
     <div>
+      <h2>Your Activity</h2>
       <div className="stats-grid">
         {stats.map((stat, index) => (
           <div key={index} className="stat-card">
@@ -54,17 +51,17 @@ const UserDashboard = () => {
   );
 };
 
-// Component for Admins
+// 🔴 ADMIN DASHBOARD (For Admins)
 const AdminDashboard = () => {
   const adminStats = [
-    { label: 'Total Users', value: 120, icon: <Shield size={20} /> },
+    { label: 'Total Users', value: 120, icon: <Users size={20} /> },
     { label: 'Job Posts', value: 45, icon: <Briefcase size={20} /> },
-    { label: 'Reports', value: 5, icon: <BookOpen size={20} /> }
+    { label: 'Reports', value: 5, icon: <FileText size={20} /> }
   ];
 
   return (
     <div>
-      <h2>Admin Dashboard</h2>
+      <h2>Admin Panel</h2>
       <div className="stats-grid">
         {adminStats.map((stat, index) => (
           <div key={index} className="stat-card">
