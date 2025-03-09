@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
+import '../styles/payment.css'; // Import the CSS for styling
 
 const Payment = () => {
   const [amount, setAmount] = useState('');
@@ -14,6 +15,7 @@ const Payment = () => {
       alert(data.ResponseDescription);
     } catch (error) {
       console.error("Mpesa Payment Failed:", error);
+      alert("Mpesa Payment Failed. Please try again.");
     }
   };
 
@@ -26,6 +28,7 @@ const Payment = () => {
       alert("Payment Successful!");
     } catch (error) {
       console.error("Stripe Payment Failed:", error);
+      alert("Stripe Payment Failed. Please try again.");
     }
   };
 
@@ -37,6 +40,7 @@ const Payment = () => {
       window.location.href = data.links[1].href; // Redirect to PayPal
     } catch (error) {
       console.error("PayPal Payment Failed:", error);
+      alert("PayPal Payment Failed. Please try again.");
     }
   };
 
@@ -47,36 +51,40 @@ const Payment = () => {
 
     try {
       await axios.post('/api/payment', paymentData);
-      console.log('Payment successful');
+      alert('Payment successful');
     } catch (error) {
       console.error('Payment failed:', error);
+      alert('Payment failed. Please try again.');
     }
   };
 
   return (
-    <div>
+    <div className="payment-container">
       <h2>Make a Payment</h2>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Enter Amount"
-      />
+      <div className="payment-form">
+        <label>Enter Amount</label>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Enter Amount"
+        />
+        <div className="payment-buttons">
+          <button onClick={handleMpesaPayment}>Pay with Mpesa</button>
 
-      <button onClick={handleMpesaPayment}>Pay with Mpesa</button>
+          <StripeCheckout
+            stripeKey="your-stripe-public-key"
+            token={handleStripePayment}
+            amount={amount * 100}
+            currency="USD"
+          >
+            <button>Pay with Stripe</button>
+          </StripeCheckout>
 
-      <StripeCheckout
-        stripeKey="your-stripe-public-key"
-        token={handleStripePayment}
-        amount={amount * 100}
-        currency="USD"
-      >
-        <button>Pay with Stripe</button>
-      </StripeCheckout>
-
-      <button onClick={handlePaypalPayment}>Pay with PayPal</button>
-
-      <button onClick={handlePayment}>Other Payment</button>
+          <button onClick={handlePaypalPayment}>Pay with PayPal</button>
+          <button onClick={handlePayment}>Other Payment</button>
+        </div>
+      </div>
     </div>
   );
 };
