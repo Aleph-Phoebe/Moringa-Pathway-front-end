@@ -1,50 +1,62 @@
 import React from 'react';
-import { useAuth } from '../../contexts/AuthContext';
-import { Navigate } from 'react-router-dom';
-import { Briefcase, Users, Settings, Bell } from 'lucide-react';
+import { Routes, Route, Link, useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { Users, BookOpen, Settings } from 'lucide-react'; // Added Users & Settings icons
+import '../styles/dashboard.css';
+
+// Admin sub-pages
+import AdminHome from './admin/AdminHome';
+import ManageUsers from './admin/ManageUsers';
+import ManageResources from './admin/ManageResources';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
-
-  // If not an admin, redirect to home
-  if (!user || user.role !== 'admin') {
-    return <Navigate to="/" />;
-  }
-
-  // Mock admin data
-  const adminStats = [
-    { label: 'Total Users', value: 120, icon: <Users size={20} /> },
-    { label: 'Job Postings', value: 35, icon: <Briefcase size={20} /> },
-    { label: 'Pending Approvals', value: 8, icon: <Settings size={20} /> },
-    { label: 'New Reports', value: 4, icon: <Bell size={20} /> }
-  ];
+  const location = useLocation();
 
   return (
-    <div className="admin-dashboard">
-      <h1>Welcome, Admin {user.name}!</h1>
-      <p>Manage users, jobs, and platform settings</p>
-
-      {/* Stats Section */}
-      <div className="stats-grid">
-        {adminStats.map((stat, index) => (
-          <div key={index} className="stat-card">
-            <div className="stat-icon">{stat.icon}</div>
-            <div className="stat-content">
-              <h3 className="stat-value">{stat.value}</h3>
-              <p className="stat-label">{stat.label}</p>
-            </div>
+    <div className="dashboard-container">
+      <div className="dashboard-sidebar">
+        <div className="user-info">
+          <div className="user-avatar">
+            {user?.name.charAt(0).toUpperCase()}
           </div>
-        ))}
+          <div className="user-details">
+            <h3>{user?.name} (Admin)</h3>
+            <p>{user?.email}</p>
+          </div>
+        </div>
+        
+        <nav className="dashboard-nav">
+          <Link 
+            to="/dashboard" 
+            className={`nav-item ${location.pathname === '/dashboard' ? 'active' : ''}`}
+          >
+            <Settings size={20} />
+            <span>Admin Dashboard</span>
+          </Link>
+          <Link 
+            to="/dashboard/users" 
+            className={`nav-item ${location.pathname === '/dashboard/users' ? 'active' : ''}`}
+          >
+            <Users size={20} />
+            <span>Manage Users</span>
+          </Link>
+          <Link 
+            to="/dashboard/resources" 
+            className={`nav-item ${location.pathname === '/dashboard/resources' ? 'active' : ''}`}
+          >
+            <BookOpen size={20} />
+            <span>Manage Resources</span>
+          </Link>
+        </nav>
       </div>
-
-      {/* Admin Actions */}
-      <div className="admin-actions">
-        <h2>Admin Actions</h2>
-        <ul>
-          <li><a href="/admin/users">Manage Users</a></li>
-          <li><a href="/admin/jobs">Approve Job Listings</a></li>
-          <li><a href="/admin/reports">View Reports</a></li>
-        </ul>
+      
+      <div className="dashboard-content">
+        <Routes>
+          <Route path="/" element={<AdminHome />} />
+          <Route path="/users" element={<ManageUsers />} />
+          <Route path="/resources" element={<ManageResources />} />
+        </Routes>
       </div>
     </div>
   );
