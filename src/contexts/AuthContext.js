@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (username, email, password) => {
-    await axios.post('/register', { username, email, password });
+    await axios.post('/add_user', { username, email, password });
   };
 
   const logout = () => {
