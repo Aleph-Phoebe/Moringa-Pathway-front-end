@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const SavedJobs = () => {
-  const [savedJobs, setSavedJobs] = useState([
+  const demoData = [
     {
       id: 1,
       jobTitle: 'Software Engineer',
@@ -26,11 +26,19 @@ const SavedJobs = () => {
       type: 'Full-time',
       dateSaved: '2025-01-25',
     },
-  ]);
+  ];
 
-  // Function to remove a job from savedJobs
+  const [savedJobs, setSavedJobs] = useState([]);
+
+  useEffect(() => {
+    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+    setSavedJobs([...demoData, ...savedJobs]);
+  }, []);
+
   const handleRemoveJob = (id) => {
-    setSavedJobs(savedJobs.filter(job => job.id !== id));
+    const updatedJobs = savedJobs.filter(job => job.id !== id);
+    setSavedJobs(updatedJobs);
+    localStorage.setItem('savedJobs', JSON.stringify(updatedJobs.filter(job => !demoData.some(demoJob => demoJob.id === job.id))));
   };
 
   return (

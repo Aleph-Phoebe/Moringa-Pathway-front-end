@@ -36,6 +36,16 @@ const JobsPage = () => {
     fetchJobs();
   }, []);
 
+  const handleSaveJob = (job) => {
+    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
+    localStorage.setItem('savedJobs', JSON.stringify([...savedJobs, job]));
+  };
+
+  const handleApplyJob = (job) => {
+    const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
+    localStorage.setItem('appliedJobs', JSON.stringify([...appliedJobs, job]));
+  };
+
   const filteredJobs = jobs.filter(job => 
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     job.company.toLowerCase().includes(searchTerm.toLowerCase())
@@ -150,10 +160,10 @@ const JobsPage = () => {
                   </div>
                 </div>
                 <div className="mt-4 md:mt-0 flex items-center space-x-4">
-                  <button className="apply-button">
+                  <button className="apply-button" onClick={() => handleApplyJob(job)}>
                     Apply Now
                   </button>
-                  <button className="save-button">
+                  <button className="save-button" onClick={() => handleSaveJob(job)}>
                     Save Job
                   </button>
                 </div>
