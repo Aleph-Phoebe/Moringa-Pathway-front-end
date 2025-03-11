@@ -4,20 +4,74 @@ import { useNavigate } from 'react-router-dom';
 import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
+import ResourceDetailsModal from '../components/ResourceDetailsModal';
 
 const ResourcesPage = () => {
   const { isPremium } = useAuth();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('all');
   const [resources, setResources] = useState([]);
+  const [selectedResource, setSelectedResource] = useState(null);
+
+  const demoData = [
+    {
+      id: 1,
+      title: 'Resume Guide',
+      description: 'A comprehensive guide to creating a professional resume.',
+      type: 'guide',
+      url: '#',
+      isPremium: false,
+    },
+    {
+      id: 2,
+      title: 'Cover Letter Template',
+      description: 'A template to help you write a compelling cover letter.',
+      type: 'template',
+      url: '#',
+      isPremium: false,
+    },
+    {
+      id: 3,
+      title: 'Interview Questions',
+      description: 'Common interview questions and model answers.',
+      type: 'guide',
+      url: '#',
+      isPremium: true,
+    },
+    {
+      id: 4,
+      title: 'Job Search Strategies',
+      description: 'Effective strategies for finding job opportunities.',
+      type: 'guide',
+      url: '#',
+      isPremium: false,
+    },
+    {
+      id: 5,
+      title: 'Networking Tips',
+      description: 'Tips for building and maintaining a professional network.',
+      type: 'guide',
+      url: '#',
+      isPremium: true,
+    },
+    {
+      id: 6,
+      title: 'Salary Negotiation',
+      description: 'Guidelines for negotiating your salary effectively.',
+      type: 'guide',
+      url: '#',
+      isPremium: false,
+    },
+  ];
 
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get(`${'https://jwt-1-olqz.onrender.com'}/get_job_resources`);
-        setResources(response.data);
+        const response = await axios.get(`${'https://jwt-1uab.onrender.com'}/get_job_resources`);
+        setResources([...demoData, ...response.data]);
       } catch (error) {
         console.error("Failed to fetch resources:", error);
+        setResources(demoData); // Fallback to demo data in case of error
       }
     };
 
@@ -58,7 +112,7 @@ const ResourcesPage = () => {
       
       <div className="resources-grid">
         {filteredResources.map(resource => (
-          <div key={resource.id} className={`resource-card ${resource.isPremium ? 'premium' : ''}`}>
+          <div key={resource.id} className={`resource-card ${resource.isPremium ? 'premium' : ''}`} onClick={() => setSelectedResource(resource)}>
             <div className="resource-icon">
               <BookOpen size={24} />
             </div>
@@ -78,6 +132,8 @@ const ResourcesPage = () => {
           </div>
         ))}
       </div>
+
+      <ResourceDetailsModal resource={selectedResource} onClose={() => setSelectedResource(null)} />
     </div>
   );
 };

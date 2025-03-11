@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
+import '../styles/resources.css';
+import ResourceDetailsModal from '../components/ResourceDetailsModal';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -123,3 +127,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

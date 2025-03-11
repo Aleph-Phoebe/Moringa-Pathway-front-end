@@ -1,5 +1,5 @@
 const config = {
-  backendUrl: 'https://jwt-1-olqz.onrender.com',
+  backendUrl: 'https://jwt-1uab.onrender.com',
 };
 
 export default config;
