@@ -3,67 +3,79 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
 
-const RegisterPage = () => {
-  const [name, setName] = useState('');
+const SignUpPage = () => {
+  const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');  // New state for phone number
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     if (password !== confirmPassword) {
-      return setError('Passwords do not match');
+      setError('Passwords do not match');
+      return;
     }
 
-    setIsLoading(true);
-
     try {
-      await register(name, email, password);
-      navigate('/dashboard');
+      setError('');
+      setLoading(true);
+
+      // Simulate registration
+      await register(username, email, phoneNumber, password);
+      navigate('/login');
     } catch (err) {
-      setError('Failed to create an account. Please try again.');
+      setError('Failed to create an account');
+      console.error(err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
   return (
     <div className="auth-container">
       <div className="auth-form-container">
-        <h1>Create Account</h1>
-        <p className="auth-subtitle">Join Moringa Pathway to access job opportunities and resources</p>
+        <h1>Create Your Account</h1>
+        <p className="auth-subtitle">Sign up for Moringa Pathway</p>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="username">Username</label>
             <input
               type="text"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
               required
-              placeholder="Enter your full name"
             />
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phoneNumber">Phone Number</label>  {/* New phone number field */}
+            <input
+              type="text"
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
             />
           </div>
 
@@ -75,8 +87,6 @@ const RegisterPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Create a password"
-              minLength={8}
             />
           </div>
 
@@ -88,39 +98,24 @@ const RegisterPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              placeholder="Confirm your password"
             />
           </div>
 
-          {/* Fixed the invalid anchor links */}
-          <div className="flex items-center mb-4">
-            <input type="checkbox" id="terms" className="mr-2" required />
-            <label htmlFor="terms" className="text-sm text-gray-600">
-              I agree to the{' '}
-              <Link to="/terms" className="text-blue-600 hover:underline">
-                Terms of Service
-              </Link>{' '}
-              and{' '}
-              <Link to="/privacy" className="text-blue-600 hover:underline">
-                Privacy Policy
-              </Link>
-            </label>
-          </div>
-
-          <button type="submit" className="auth-button" disabled={isLoading}>
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+          <button 
+            type="submit" 
+            className="auth-button" 
+            disabled={loading}
+          >
+            {loading ? 'Creating account...' : 'Sign Up'}
           </button>
         </form>
 
         <p className="auth-redirect">
-          Already have an account?{' '}
-          <Link to="/login" className="auth-link">
-            Log in
-          </Link>
+          Already have an account? <Link to="/login" className="auth-link">Sign in</Link>
         </p>
       </div>
     </div>
   );
 };
 
-export default RegisterPage;
+export default SignUpPage;

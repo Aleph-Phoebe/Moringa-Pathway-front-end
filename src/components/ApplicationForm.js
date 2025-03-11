@@ -8,18 +8,33 @@ const ApplicationForm = () => {
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
-    resume: '',
-    coverLetter: '',
+    resume: null,
+    coverLetter: null,
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, type, files, value } = e.target;
+    if (type === 'file') {
+      setFormData({ ...formData, [name]: files[0] });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const formDataToSend = new FormData();
+    formDataToSend.append('fullName', formData.fullName);
+    formDataToSend.append('email', formData.email);
+    formDataToSend.append('resume', formData.resume);
+    formDataToSend.append('coverLetter', formData.coverLetter);
+
     try {
-      await axios.post(`http://127.0.0.1:5000/jobs/${jobId}/apply`, formData);
+      await axios.post(`http://127.0.0.1:5000/jobs/${jobId}/apply`, formDataToSend, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
       alert('Application submitted successfully!');
       navigate('/dashboard');
     } catch (error) {
@@ -31,7 +46,7 @@ const ApplicationForm = () => {
   return (
     <div className="p-4">
       <h2>Apply for Job</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
         <div>
           <label>Full Name:</label>
           <input
@@ -53,21 +68,21 @@ const ApplicationForm = () => {
           />
         </div>
         <div>
-          <label>Resume Link:</label>
+          <label>Resume (PDF only):</label>
           <input
-            type="url"
+            type="file"
             name="resume"
-            value={formData.resume}
+            accept=".pdf"
             onChange={handleChange}
-            placeholder="e.g., LinkedIn or PDF link"
             required
           />
         </div>
         <div>
-          <label>Cover Letter:</label>
-          <textarea
+          <label>Cover Letter (PDF only):</label>
+          <input
+            type="file"
             name="coverLetter"
-            value={formData.coverLetter}
+            accept=".pdf"
             onChange={handleChange}
             required
           />

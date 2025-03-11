@@ -1,48 +1,32 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 
 const JobDetailsModal = ({ job, onClose }) => {
-  const [showForm, setShowForm] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    resume: '',
-    coverLetter: '',
-  });
+  const [isApplying, setIsApplying] = useState(false); // Toggle for the application form
+  const [isSaved, setIsSaved] = useState(false); // Toggle for job save
+  const [applicationMessage, setApplicationMessage] = useState('');
+  const [applicantName, setApplicantName] = useState('');
+  const [applicantEmail, setApplicantEmail] = useState('');
 
   if (!job) return null;
 
-  // Toggle the application form visibility
-  const toggleForm = () => {
-    setShowForm(!showForm);
+  // Handle job saving
+  const handleSaveJob = () => {
+    setIsSaved(true);
+    alert('Job saved successfully!');
   };
 
-  // Handle input changes in the form
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  // Save Job function
-  const saveJob = async () => {
-    try {
-      await axios.post(`http://127.0.0.1:5000/jobs/${job.id}/save`);
-      alert('Job saved successfully!');
-    } catch (error) {
-      console.error('Error saving job:', error);
-      alert('Failed to save job.');
-    }
-  };
-
-  // Submit Application function
-  const handleSubmit = async (e) => {
+  // Handle application submission
+  const handleSubmitApplication = (e) => {
     e.preventDefault();
-    try {
-      await axios.post(`http://127.0.0.1:5000/jobs/${job.id}/apply`, formData);
+
+    if (applicantName && applicantEmail && applicationMessage) {
       alert('Application submitted successfully!');
-      setShowForm(false);
-    } catch (error) {
-      console.error('Error submitting application:', error);
-      alert('Failed to submit application.');
+      setIsApplying(false);
+      setApplicantName('');
+      setApplicantEmail('');
+      setApplicationMessage('');
+    } else {
+      alert('Please fill in all fields!');
     }
   };
 
@@ -55,50 +39,59 @@ const JobDetailsModal = ({ job, onClose }) => {
         <p><strong>Location:</strong> {job.location}</p>
         <p><strong>Type:</strong> {job.type}</p>
         <p><strong>Posted:</strong> {job.posted}</p>
-        <p><strong>Description:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam non urna vitae libero bibendum tincidunt.</p>
+        <p><strong>Description:</strong> {job.description}</p>
 
         <div className="modal-buttons">
-          <button className="apply-button" onClick={toggleForm}>
-            {showForm ? 'Cancel' : 'Apply Now'}
+          <button 
+            className={`apply-button ${isApplying ? 'cancel-button' : ''}`} 
+            onClick={() => setIsApplying(!isApplying)}
+          >
+            {isApplying ? 'Cancel Application' : 'Apply Now'}
           </button>
-          <button className="save-button" onClick={saveJob}>Save Job</button>
+          <button 
+            className={`save-button ${isSaved ? 'saved' : ''}`} 
+            onClick={handleSaveJob} 
+            disabled={isSaved}
+          >
+            {isSaved ? 'Saved' : 'Save Job'}
+          </button>
         </div>
 
-        {showForm && (
-          <form className="application-form" onSubmit={handleSubmit}>
-            <h3>Job Application</h3>
-            <input
-              type="text"
-              name="fullName"
-              placeholder="Full Name"
-              value={formData.fullName}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="text"
-              name="resume"
-              placeholder="Resume Link"
-              value={formData.resume}
-              onChange={handleChange}
-              required
-            />
-            <textarea
-              name="coverLetter"
-              placeholder="Cover Letter"
-              value={formData.coverLetter}
-              onChange={handleChange}
-              required
-            />
-            <button type="submit" className="submit-button">Submit Application</button>
+        {isApplying && (
+          <form className="application-form" onSubmit={handleSubmitApplication}>
+            <h3>Application Form</h3>
+            <div className="form-group">
+              <label htmlFor="applicantName">Name:</label>
+              <input
+                type="text"
+                id="applicantName"
+                value={applicantName}
+                onChange={(e) => setApplicantName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="applicantEmail">Email:</label>
+              <input
+                type="email"
+                id="applicantEmail"
+                value={applicantEmail}
+                onChange={(e) => setApplicantEmail(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="applicationMessage">Message:</label>
+              <textarea
+                id="applicationMessage"
+                value={applicationMessage}
+                onChange={(e) => setApplicationMessage(e.target.value)}
+                required
+              />
+            </div>
+            <button type="submit" className="submit-application-button">
+              Submit Application
+            </button>
           </form>
         )}
       </div>

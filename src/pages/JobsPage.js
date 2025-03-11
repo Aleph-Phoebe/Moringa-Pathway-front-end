@@ -3,6 +3,7 @@ import { MapPin, Clock, Star } from 'lucide-react';
 import "../styles/jobs.css";
 import JobDetailsModal from '../components/JobDetailsModal';
 
+// Define the shape of a job object using JSDoc comments
 /**
  * @typedef {Object} Job
  * @property {number} id
@@ -60,6 +61,7 @@ const JobsPage = () => {
     }
   ];
 
+  // Filter jobs based on search term
   const filteredJobs = mockJobs.filter(job => 
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     job.company.toLowerCase().includes(searchTerm.toLowerCase())
