@@ -19,7 +19,7 @@ const AdminDashboard = () => {
       <div className="dashboard-sidebar">
         <div className="user-info">
           <div className="user-avatar">
-            {user?.name.charAt(0).toUpperCase()}
+            {user?.name?.charAt(0).toUpperCase()}
           </div>
           <div className="user-details">
             <h3>{user?.name}</h3>

@@ -14,7 +14,7 @@ const ResourcesPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get(`${config.backendUrl}/get_job_resources`);
+        const response = await axios.get(`${'https://jwt-1-olqz.onrender.com'}/get_job_resources`);
         setResources(response.data);
       } catch (error) {
         console.error("Failed to fetch resources:", error);

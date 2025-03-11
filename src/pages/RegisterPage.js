@@ -9,8 +9,7 @@ const RegisterPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  
+  const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
 
@@ -22,15 +21,16 @@ const RegisterPage = () => {
       return setError('Passwords do not match');
     }
 
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       await register(name, email, password);
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to create an account. Please try again.');
+      console.error(err);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
@@ -106,8 +106,8 @@ const RegisterPage = () => {
             </label>
           </div>
 
-          <button type="submit" className="auth-button" disabled={isLoading}>
-            {isLoading ? 'Creating Account...' : 'Create Account'}
+          <button type="submit" className="auth-button" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Account'}
           </button>
         </form>
 
