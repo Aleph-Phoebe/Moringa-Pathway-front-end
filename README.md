@@ -12,6 +12,8 @@ This project is the front-end for the Moringa Pathway application, which helps u
 - CSS
 - HTML
 
+## Frontend
+the app is live on https://moringa-pathway-front-end-tau.vercel.app/
 ## Backend Server
 
 The backend server for this application is deployed on Render and can be accessed at: [https://jwt-8im5.onrender.com](https://jwt-8im5.onrender.com)
@@ -28,10 +30,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -57,5 +55,5 @@ You don't have to ever use `eject`. The curated feature set is suitable for smal
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/Moringa-Pathway-front-end.git
+   git clone https://github.com/Aleph-Phoebe/Moringa-Pathway-front-end.git
    cd Moringa-Pathway-front-end
