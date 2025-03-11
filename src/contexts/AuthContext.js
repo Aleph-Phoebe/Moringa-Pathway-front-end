@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -15,62 +16,70 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // Check if the user is already logged in
     const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const storedToken = localStorage.getItem('access_token');
+
+    if (storedUser && storedToken) {
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === 'user@example.com' && password === 'password') {
-          const loggedInUser = {
-            id: '1',
-            name: 'Demo User',
-            email: 'user@example.com',
-            role: 'user',
-          };
-          setUser(loggedInUser);
-          localStorage.setItem('user', JSON.stringify(loggedInUser));
-          resolve();
-        } else if (email === 'admin@example.com' && password === 'password') {
-          const adminUser = {
-            id: '2',
-            name: 'Admin User',
-            email: 'admin@example.com',
-            role: 'admin',
-          };
-          setUser(adminUser);
-          localStorage.setItem('user', JSON.stringify(adminUser));
-          resolve();
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
+  const login = async (username, password) => {
+    try {
+      // Send a POST request to the backend login endpoint
+      const response = await axios.post('http://localhost:5000/login', {
+        username,
+        password,
+      });
+
+      if (response.status === 200) {
+        const { access_token, user } = response.data;
+
+        // Store the access token and user details in localStorage
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        // Update the user state
+        setUser(user);
+      }
+    } catch (err) {
+      throw new Error(err.response?.data?.error || 'Failed to sign in');
+    }
   };
 
   const register = async (name, email, password) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newUser = {
-          id: '3',
-          name,
-          email,
-          role: 'user',
-        };
-        setUser(newUser);
-        localStorage.setItem('user', JSON.stringify(newUser));
-        resolve();
-      }, 1000);
-    });
+    try {
+      // Send a POST request to the backend register endpoint
+      const response = await axios.post('http://localhost:5000/register', {
+        name,
+        email,
+        password,
+      });
+
+      if (response.status === 201) {
+        const { access_token, user } = response.data;
+
+        // Store the access token and user details in localStorage
+        localStorage.setItem('access_token', access_token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        // Update the user state
+        setUser(user);
+      }
+    } catch (err) {
+      throw new Error(err.response?.data?.error || 'Failed to register');
+    }
   };
 
   const logout = () => {
-    setUser(null);
+    // Clear the access token and user details from localStorage
+    localStorage.removeItem('access_token');
     localStorage.removeItem('user');
+
+    // Update the user state
+    setUser(null);
   };
 
   const value = {
@@ -86,5 +95,5 @@ export const AuthProvider = ({ children }) => {
     <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
-  );
+  );
 };
