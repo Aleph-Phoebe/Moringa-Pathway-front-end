@@ -8,7 +8,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const {login} = useAuth(); // Assuming this context has the login function to handle API calls
+  const { login } = useAuth(); // Assuming this context has the login function to handle API calls
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -53,6 +53,8 @@ const LoginPage = () => {
               required
             />
           </div>
+
+          
 
           <div className="form-group">
             <label htmlFor="password">Password</label>
