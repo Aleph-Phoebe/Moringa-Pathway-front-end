@@ -1,44 +1,30 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config';
 
 const SavedJobs = () => {
-  const demoData = [
-    {
-      id: 1,
-      jobTitle: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'Remote',
-      type: 'Full-time',
-      dateSaved: '2025-02-15',
-    },
-    {
-      id: 2,
-      jobTitle: 'Frontend Developer',
-      company: 'Web Solutions',
-      location: 'New York, NY',
-      type: 'Part-time',
-      dateSaved: '2025-02-10',
-    },
-    {
-      id: 3,
-      jobTitle: 'Backend Developer',
-      company: 'Data Systems',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      dateSaved: '2025-01-25',
-    },
-  ];
-
   const [savedJobs, setSavedJobs] = useState([]);
 
   useEffect(() => {
-    const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
-    setSavedJobs([...demoData, ...savedJobs]);
+    const fetchSavedJobs = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_saved_jobs`);
+        setSavedJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching saved jobs:', error);
+      }
+    };
+
+    fetchSavedJobs();
   }, []);
 
-  const handleRemoveJob = (id) => {
-    const updatedJobs = savedJobs.filter(job => job.id !== id);
-    setSavedJobs(updatedJobs);
-    localStorage.setItem('savedJobs', JSON.stringify(updatedJobs.filter(job => !demoData.some(demoJob => demoJob.id === job.id))));
+  const handleRemoveJob = async (id) => {
+    try {
+      await axios.delete(`${config.backendUrl}/delete_saved_job/${id}`);
+      setSavedJobs(savedJobs.filter(job => job.id !== id));
+    } catch (error) {
+      console.error('Error removing saved job:', error);
+    }
   };
 
   return (

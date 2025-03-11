@@ -5,7 +5,7 @@ import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
 import '../styles/resources.css';
-import ResourceDetailsModal from '../components/ResourceDetailsModal';
+
 
 const RegisterPage = () => {
   const [name, setName] = useState('');

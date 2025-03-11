@@ -1,10 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config';
 
 const ManageResources = () => {
+  const [resources, setResources] = useState([]);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_job_resources`);
+        setResources(response.data);
+      } catch (error) {
+        console.error('Error fetching resources:', error);
+      }
+    };
+
+    fetchResources();
+  }, []);
+
+  const deleteResource = async (resourceId) => {
+    try {
+      await axios.delete(`${config.backendUrl}/delete_job_resource/${resourceId}`);
+      setResources(resources.filter((resource) => resource.id !== resourceId));
+      alert('Resource deleted successfully');
+    } catch (error) {
+      console.error('Error deleting resource:', error);
+    }
+  };
+
   return (
     <div>
-      <h1>Manage Resources</h1>
-      <p>Here you can manage career resources.</p>
+      <h3 className="text-xl font-bold mb-2">Resource Management</h3>
+      <ul>
+        {resources.map((resource) => (
+          <li key={resource.id} className="mb-2">
+            {resource.title} - {resource.type}
+            <button 
+              onClick={() => deleteResource(resource.id)}
+              className="ml-2 text-red-500"
+            >
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

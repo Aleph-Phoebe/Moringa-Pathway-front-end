@@ -1,45 +1,31 @@
 import React, { useState, useEffect } from 'react';
 import '../../styles/jobapplications.css';
+import axios from 'axios';
+import config from '../../config';
 
 const JobApplications = () => {
-  const demoData = [
-    {
-      id: 1,
-      jobTitle: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'Remote',
-      type: 'Full-time',
-      dateApplied: '2025-02-15',
-    },
-    {
-      id: 2,
-      jobTitle: 'Frontend Developer',
-      company: 'Web Solutions',
-      location: 'New York, NY',
-      type: 'Part-time',
-      dateApplied: '2025-02-10',
-    },
-    {
-      id: 3,
-      jobTitle: 'Backend Developer',
-      company: 'Data Systems',
-      location: 'San Francisco, CA',
-      type: 'Full-time',
-      dateApplied: '2025-01-25',
-    },
-  ];
-
   const [applications, setApplications] = useState([]);
 
   useEffect(() => {
-    const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
-    setApplications([...demoData, ...appliedJobs]);
+    const fetchApplications = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_applications`);
+        setApplications(response.data);
+      } catch (error) {
+        console.error('Error fetching job applications:', error);
+      }
+    };
+
+    fetchApplications();
   }, []);
 
-  const handleRemoveApplication = (id) => {
-    const updatedApplications = applications.filter(job => job.id !== id);
-    setApplications(updatedApplications);
-    localStorage.setItem('appliedJobs', JSON.stringify(updatedApplications.filter(job => !demoData.some(demoJob => demoJob.id === job.id))));
+  const handleRemoveApplication = async (id) => {
+    try {
+      await axios.delete(`${config.backendUrl}/delete_application/${id}`);
+      setApplications(applications.filter(job => job.id !== id));
+    } catch (error) {
+      console.error('Error removing job application:', error);
+    }
   };
 
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, BookOpen, Clock, User } from 'lucide-react'; // Removed Settings
+import { Briefcase, BookOpen, Clock, User } from 'lucide-react';
 import '../styles/dashboard.css';
 
 // Dashboard sub-pages

@@ -1,13 +1,14 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
-import { Users, BookOpen } from 'lucide-react';
+import { Briefcase, BookOpen, Clock, User } from 'lucide-react';
 import '../../styles/dashboard.css';
 
 // Admin sub-pages
 import AdminHome from './AdminHome';
 import ManageUsers from './ManageUsers';
 import ManageResources from './ManageResources';
+import JobManagement from '../../components/admin/JobManagement';
 
 const AdminDashboard = () => {
   const { user } = useAuth();
@@ -15,31 +16,30 @@ const AdminDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      {/* Sidebar */}
       <div className="dashboard-sidebar">
         <div className="user-info">
           <div className="user-avatar">
-            {user?.name?.charAt(0).toUpperCase()}
+            {user?.name.charAt(0).toUpperCase()}
           </div>
           <div className="user-details">
             <h3>{user?.name}</h3>
-            <p>Admin Panel</p>
+            <p>{user?.email}</p>
           </div>
         </div>
-
+        
         <nav className="dashboard-nav">
           <Link 
             to="/admin" 
             className={`nav-item ${location.pathname === '/admin' ? 'active' : ''}`}
           >
-            <Users size={20} />
+            <Briefcase size={20} />
             <span>Dashboard</span>
           </Link>
           <Link 
             to="/admin/manage-users" 
             className={`nav-item ${location.pathname === '/admin/manage-users' ? 'active' : ''}`}
           >
-            <Users size={20} />
+            <User size={20} />
             <span>Manage Users</span>
           </Link>
           <Link 
@@ -49,15 +49,22 @@ const AdminDashboard = () => {
             <BookOpen size={20} />
             <span>Manage Resources</span>
           </Link>
+          <Link 
+            to="/admin/job-management" 
+            className={`nav-item ${location.pathname === '/admin/job-management' ? 'active' : ''}`}
+          >
+            <Clock size={20} />
+            <span>Job Management</span>
+          </Link>
         </nav>
       </div>
-
-      {/* Content Area */}
+      
       <div className="dashboard-content">
         <Routes>
           <Route path="/" element={<AdminHome />} />
           <Route path="/manage-users" element={<ManageUsers />} />
           <Route path="/manage-resources" element={<ManageResources />} />
+          <Route path="/job-management" element={<JobManagement />} />
         </Routes>
       </div>
     </div>

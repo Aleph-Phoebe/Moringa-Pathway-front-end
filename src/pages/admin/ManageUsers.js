@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import config from '../../config';
 
-const ManagementUsers = () => {
+const ManageUsers = () => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_users`);
+        setUsers(response.data);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
     fetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get('http://127.0.0.1:5000/api/users');
-      setUsers(response.data);
-    } catch (error) {
-      console.error('Error fetching users:', error);
-    }
-  };
-
   const deleteUser = async (userId) => {
     try {
-      await axios.delete(`http://127.0.0.1:5000/api/users/${userId}`);
+      await axios.delete(`${config.backendUrl}/delete_user/${userId}`);
       setUsers(users.filter((user) => user.id !== userId));
       alert('User deleted successfully');
     } catch (error) {
@@ -47,4 +48,4 @@ const ManagementUsers = () => {
   );
 };
 
-export default ManagementUsers;
+export default ManageUsers;
