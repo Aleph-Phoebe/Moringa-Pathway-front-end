@@ -23,13 +23,45 @@ const JobsPage = () => {
   const [salary, setSalary] = useState(50000);
   const [selectedJob, setSelectedJob] = useState(null);
 
+  // Demo data for jobs
+  const demoJobs = [
+    {
+      id: 1,
+      title: "Software Engineer",
+      company: "Tech Corp",
+      location: "Remote",
+      type: "Full-time",
+      posted: "2025-02-15",
+      logo: "TC"
+    },
+    {
+      id: 2,
+      title: "Frontend Developer",
+      company: "Web Solutions",
+      location: "New York, NY",
+      type: "Part-time",
+      posted: "2025-02-10",
+      logo: "WS"
+    },
+    {
+      id: 3,
+      title: "Backend Developer",
+      company: "Data Systems",
+      location: "San Francisco, CA",
+      type: "Full-time",
+      posted: "2025-01-25",
+      logo: "DS"
+    }
+  ];
+
   useEffect(() => {
     const fetchJobs = async () => {
       try {
         const response = await axios.get(`${config.backendUrl}/get_jobs`);
-        setJobs(response.data);
+        setJobs([...demoJobs, ...response.data]);
       } catch (error) {
         console.error("Failed to fetch jobs:", error);
+        setJobs(demoJobs);
       }
     };
 
@@ -38,12 +70,18 @@ const JobsPage = () => {
 
   const handleSaveJob = (job) => {
     const savedJobs = JSON.parse(localStorage.getItem('savedJobs')) || [];
-    localStorage.setItem('savedJobs', JSON.stringify([...savedJobs, job]));
+    if (!savedJobs.find(savedJob => savedJob.id === job.id)) {
+      savedJobs.push(job);
+      localStorage.setItem('savedJobs', JSON.stringify(savedJobs));
+    }
   };
 
   const handleApplyJob = (job) => {
     const appliedJobs = JSON.parse(localStorage.getItem('appliedJobs')) || [];
-    localStorage.setItem('appliedJobs', JSON.stringify([...appliedJobs, job]));
+    if (!appliedJobs.find(appliedJob => appliedJob.id === job.id)) {
+      appliedJobs.push(job);
+      localStorage.setItem('appliedJobs', JSON.stringify(appliedJobs));
+    }
   };
 
   const filteredJobs = jobs.filter(job => 
@@ -113,7 +151,7 @@ const JobsPage = () => {
             <option value="last7days">Last 7 days</option>
             <option value="last14days">Last 14 days</option>
             <option value="last30days">Last 30 days</option>
-            <option value="ealier">ealier</option>
+            <option value="ealier">Earlier</option>
           </select>
         </div>
 
