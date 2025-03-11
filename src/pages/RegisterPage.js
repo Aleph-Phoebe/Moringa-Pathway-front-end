@@ -10,6 +10,7 @@ import ResourceDetailsModal from '../components/ResourceDetailsModal';
 const RegisterPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -28,7 +29,7 @@ const RegisterPage = () => {
     setLoading(true);
 
     try {
-      await register(name, email, password);
+      await register(name, phone , email, password);
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to create an account. Please try again.');
@@ -56,6 +57,18 @@ const RegisterPage = () => {
               onChange={(e) => setName(e.target.value)}
               required
               placeholder="Enter your full name"
+            />
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="phone">Phone Number</label>
+            <input
+              type="tel"
+              id="phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              required
+              placeholder="Enter your phone number"
             />
           </div>
 
