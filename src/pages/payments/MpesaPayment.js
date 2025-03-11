@@ -9,7 +9,7 @@ const MpesaPayment = () => {
     alert(`Processing Mpesa payment of KES ${amount} from ${phoneNumber}`);
 
     const url = "https://tinypesa.com/api/v1/express/initialize";
-    const payload = `amount=${amount}&msisdn=${phoneNumber}&account_no=0746386895`;
+    const payload = `amount=${amount}&msisdn=${phoneNumber}&account_no=5173352010093677&paybill=522522`;
 
     try {
       const response = await fetch(url, {

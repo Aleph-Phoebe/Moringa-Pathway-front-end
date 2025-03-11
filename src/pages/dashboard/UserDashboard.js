@@ -17,7 +17,7 @@ const UserDashboard = () => {
 
   // Example of a defensive check before using charAt
   const username = user?.name || '';
-  const firstChar = username.charAt(0).toUpperCase();
+  const firstChar = username ? username.charAt(0).toUpperCase() : '';
 
   return (
     <div className="dashboard-container">
