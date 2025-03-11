@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import config from '../config';
+import axios from 'axios';
 
 const AuthContext = createContext();
 
@@ -22,50 +24,26 @@ export const AuthProvider = ({ children }) => {
     setLoading(false);
   }, []);
 
-  const login = async (email, password) => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (email === 'user@example.com' && password === 'password') {
-          const loggedInUser = {
-            id: '1',
-            name: 'Demo User',
-            email: 'user@example.com',
-            role: 'user',
-          };
-          setUser(loggedInUser);
-          localStorage.setItem('user', JSON.stringify(loggedInUser));
-          resolve();
-        } else if (email === 'admin@example.com' && password === 'password') {
-          const adminUser = {
-            id: '2',
-            name: 'Admin User',
-            email: 'admin@example.com',
-            role: 'admin',
-          };
-          setUser(adminUser);
-          localStorage.setItem('user', JSON.stringify(adminUser));
-          resolve();
-        } else {
-          reject(new Error('Invalid credentials'));
-        }
-      }, 1000);
-    });
+  const login = async (username, password) => {
+    try {
+      const response = await axios.post(`${config.backendUrl}/login`, { username, password });
+      const loggedInUser = response.data;
+      setUser(loggedInUser);
+      localStorage.setItem('user', JSON.stringify(loggedInUser));
+    } catch (error) {
+      throw new Error('Invalid credentials');
+    }
   };
 
   const register = async (name, email, password) => {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        const newUser = {
-          id: '3',
-          name,
-          email,
-          role: 'user',
-        };
-        setUser(newUser);
-        localStorage.setItem('user', JSON.stringify(newUser));
-        resolve();
-      }, 1000);
-    });
+    try {
+      const response = await axios.post(`${config.backendUrl}/register`, { name, email, password });
+      const newUser = response.data;
+      setUser(newUser);
+      localStorage.setItem('user', JSON.stringify(newUser));
+    } catch (error) {
+      throw new Error('Registration failed');
+    }
   };
 
   const logout = () => {

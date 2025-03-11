@@ -92,7 +92,6 @@ const RegisterPage = () => {
             />
           </div>
 
-          {/* Fixed the invalid anchor links */}
           <div className="flex items-center mb-4">
             <input type="checkbox" id="terms" className="mr-2" required />
             <label htmlFor="terms" className="text-sm text-gray-600">

@@ -1,39 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
 
-/**
- * @typedef {Object} Resource
- * @property {number} id
- * @property {string} title
- * @property {string} description
- * @property {string} type
- * @property {boolean} isPremium
- * @property {string} url
- */
-
 const ResourcesPage = () => {
   const { isPremium } = useAuth();
   const navigate = useNavigate();
   const [activeCategory, setActiveCategory] = useState('all');
-  
-  /** @type {Resource[]} */
-  const resources = [
-    { id: 1, title: "Resume Writing Guide", description: "Learn how to craft a professional resume that stands out to employers.", type: "guide", isPremium: false, url: "#" },
-    { id: 2, title: "Interview Preparation", description: "Prepare for common interview questions and techniques.", type: "guide", isPremium: false, url: "#" },
-    { id: 3, title: "Technical Interview Questions", description: "Common technical questions for software development roles with detailed answers.", type: "template", isPremium: true, url: "#" },
-    { id: 4, title: "Salary Negotiation Tactics", description: "How to negotiate your salary effectively to get the best offer.", type: "guide", isPremium: true, url: "#" },
-    { id: 5, title: "Professional CV Template", description: "Ready-to-use CV template optimized for tech industry applications.", type: "template", isPremium: false, url: "#" },
-    { id: 6, title: "LinkedIn Profile Optimization", description: "Tips to make your LinkedIn profile attract recruiters.", type: "guide", isPremium: false, url: "#" }
-  ];
-  
+  const [resources, setResources] = useState([]);
+
+  useEffect(() => {
+    const fetchResources = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_job_resources`);
+        setResources(response.data);
+      } catch (error) {
+        console.error("Failed to fetch resources:", error);
+      }
+    };
+
+    fetchResources();
+  }, []);
+
   const filteredResources = resources.filter(resource => activeCategory === 'all' || resource.type === activeCategory);
 
   // Handle Upgrade Button Click (Redirects to Payment Page)
   const handleUpgradeClick = () => {
-    navigate('/payment'); // Navigate to payment page
+    navigate('/payment');
   };
 
   return (

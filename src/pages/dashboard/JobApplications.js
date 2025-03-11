@@ -1,33 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../../config';
 import '../../styles/jobapplications.css';
 import ApplicationDetailsModal from '../../components/ApplicationDetailsModal';
 
 const JobApplications = () => {
-  const [applications] = useState([
-    {
-      id: 1,
-      jobTitle: 'Software Engineer',
-      company: 'Tech Corp',
-      status: 'Pending',
-      dateApplied: '2025-02-15',
-    },
-    {
-      id: 2,
-      jobTitle: 'Frontend Developer',
-      company: 'Web Solutions',
-      status: 'Interview',
-      dateApplied: '2025-02-10',
-    },
-    {
-      id: 3,
-      jobTitle: 'Backend Developer',
-      company: 'Data Systems',
-      status: 'Rejected',
-      dateApplied: '2025-01-25',
-    },
-  ]);
-
+  const [applications, setApplications] = useState([]);
   const [selectedApplication, setSelectedApplication] = useState(null);
+
+  useEffect(() => {
+    const fetchApplications = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_applications`);
+        setApplications(response.data);
+      } catch (error) {
+        console.error("Failed to fetch applications:", error);
+      }
+    };
+
+    fetchApplications();
+  }, []);
 
   return (
     <div className="job-applications">

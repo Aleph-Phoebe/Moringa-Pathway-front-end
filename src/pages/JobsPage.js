@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import config from '../config';
 import { MapPin, Clock, Star } from 'lucide-react';
 import "../styles/jobs.css";
 import JobDetailsModal from '../components/JobDetailsModal';
@@ -17,52 +19,24 @@ import JobDetailsModal from '../components/JobDetailsModal';
 
 const JobsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [jobs, setJobs] = useState([]);
   const [salary, setSalary] = useState(50000);
   const [selectedJob, setSelectedJob] = useState(null);
-  
-  // Mock data for jobs
-  /** @type {Job[]} */
-  const mockJobs = [
-    {
-      id: 1,
-      title: "Regional Certified Facilitator",
-      company: "Moringa School",
-      location: "Nairobi, Kenya",
-      type: "Full-time",
-      posted: "2 days ago",
-      logo: "RC"
-    },
-    {
-      id: 2,
-      title: "Select A Brand Director",
-      company: "Moringa",
-      location: "Nairobi",
-      type: "Full-time",
-      posted: "3 days ago",
-      logo: "SA"
-    },
-    {
-      id: 3,
-      title: "Tanzania Partner Facilitator",
-      company: "Moringa",
-      location: "Tanzania",
-      type: "Full-time",
-      posted: "5 days ago",
-      logo: "TP"
-    },
-    {
-      id: 4,
-      title: "Senior Software Developer",
-      company: "Moringa Tech",
-      location: "Remote",
-      type: "Full-time",
-      posted: "1 day ago",
-      logo: "MT"
-    }
-  ];
 
-  // Filter jobs based on search term
-  const filteredJobs = mockJobs.filter(job => 
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axios.get(`${config.backendUrl}/get_jobs`);
+        setJobs(response.data);
+      } catch (error) {
+        console.error("Failed to fetch jobs:", error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  const filteredJobs = jobs.filter(job => 
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     job.company.toLowerCase().includes(searchTerm.toLowerCase())
   );
