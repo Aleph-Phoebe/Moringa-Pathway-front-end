@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 
 const MpesaPayment = () => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [amount, setAmount] = useState('');
+  const [amount, setAmount] = useState(5000); // Set the default amount to 5000
 
   const handlePayment = async (e) => {
     e.preventDefault();
     alert(`Processing Mpesa payment of KES ${amount} from ${phoneNumber}`);
 
     const url = "https://tinypesa.com/api/v1/express/initialize";
-    const payload = `amount=${amount} &msisdn=${phoneNumber}&account_no=0746386895`;
+    const payload = `amount=${amount}&msisdn=${phoneNumber}&account_no=0746386895`;
 
     try {
       const response = await fetch(url, {
@@ -47,8 +47,7 @@ const MpesaPayment = () => {
         <label>Amount (KES):</label>
         <input
           type="number"
-          placeholder="Enter amount"
-          value={5000}
+          value={amount}
           onChange={(e) => setAmount(e.target.value)}
           required
         />
