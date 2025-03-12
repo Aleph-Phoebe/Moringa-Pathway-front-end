@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const CompanyCard = ({ icon, name, description }) => {
   return (
     <div className="company-card">

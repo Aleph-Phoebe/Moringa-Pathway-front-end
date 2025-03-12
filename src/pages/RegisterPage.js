@@ -5,10 +5,12 @@ import '../styles/auth.css';
 import '../styles/resources.css';
 
 
+
 const RegisterPage = () => {
   const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
@@ -18,10 +20,10 @@ const RegisterPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
     if (password !== confirmPassword) {
-      return setError('Passwords do not match');
+      setError('Passwords do not match');
+      return;
     }
 
     setLoading(true);
@@ -31,6 +33,7 @@ const RegisterPage = () => {
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to create an account. Please try again.');
+
       console.error(err);
     } finally {
       setLoading(false);
@@ -40,21 +43,22 @@ const RegisterPage = () => {
   return (
     <div className="auth-container">
       <div className="auth-form-container">
-        <h1>Create Account</h1>
-        <p className="auth-subtitle">Join Moringa Pathway to access job opportunities and resources</p>
+        <h1>Create Your Account</h1>
+        <p className="auth-subtitle">Sign up for Moringa Pathway</p>
 
         {error && <div className="auth-error">{error}</div>}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
+
             <label htmlFor="username">Full Name</label>
             <input
               type="text"
               id="name"
               value={username}
               onChange={(e) => setName(e.target.value)}
+
               required
-              placeholder="Enter your full name"
             />
           </div>
           
@@ -71,14 +75,24 @@ const RegisterPage = () => {
           </div>
 
           <div className="form-group">
-            <label htmlFor="email">Email</label>
+            <label htmlFor="email">Email Address</label>
             <input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              placeholder="Enter your email"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="phoneNumber">Phone Number</label>  {/* New phone number field */}
+            <input
+              type="text"
+              id="phoneNumber"
+              value={phoneNumber}
+              onChange={(e) => setPhoneNumber(e.target.value)}
+              required
             />
           </div>
 
@@ -90,8 +104,6 @@ const RegisterPage = () => {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              placeholder="Create a password"
-              minLength={8}
             />
           </div>
 
@@ -103,9 +115,9 @@ const RegisterPage = () => {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
-              placeholder="Confirm your password"
             />
           </div>
+
 
           <div className="flex items-center mb-4">
             <input type="checkbox" id="terms" className="mr-2" required />
@@ -123,19 +135,19 @@ const RegisterPage = () => {
 
           <button type="submit" className="auth-button" disabled={loading}>
             {loading ? 'Creating Account...' : 'Create Account'}
+
           </button>
         </form>
 
         <p className="auth-redirect">
-          Already have an account?{' '}
-          <Link to="/login" className="auth-link">
-            Log in
-          </Link>
+          Already have an account? <Link to="/login" className="auth-link">Sign in</Link>
         </p>
       </div>
     </div>
   );
 };
 
+
 export default RegisterPage;
+
 
