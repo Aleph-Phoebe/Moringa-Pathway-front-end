@@ -11,7 +11,7 @@ const AdminHome = () => {
       
       <div className="admin-overview">
         <div className="overview-card">
-          <h2>Manage Jobs</h2>
+          <h2>Manage Jobs</h2>,
           <p>View and manage job postings.</p>
         </div>
         <div className="overview-card">
