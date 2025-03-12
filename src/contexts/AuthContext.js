@@ -27,7 +27,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (username, password) => {
     try {
       const response = await axios.post(`${config.backendUrl}/login`, { username, password });
-      const loggedInUser = response.data;
+      const loggedInUser = response.data.user;
       setUser(loggedInUser);
       localStorage.setItem('user', JSON.stringify(loggedInUser));
     } catch (error) {
@@ -35,10 +35,10 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  const register = async (name, phone, email, password) => {
+  const register = async (username, phone, email, password) => {
     try {
-      const response = await axios.post(`${config.backendUrl}/register`, { name, phone, email, password });
-      const newUser = response.data;
+      const response = await axios.post(`${config.backendUrl}/register`, { username, phone, email, password });
+      const newUser = response.data.user;
       setUser(newUser);
       localStorage.setItem('user', JSON.stringify(newUser));
     } catch (error) {
@@ -57,6 +57,8 @@ export const AuthProvider = ({ children }) => {
     register,
     logout,
     isAuthenticated: !!user,
+    isAdmin: user?.role === 'admin',
+    isPremium: user?.role === 'premium',
     loading,
   };
 

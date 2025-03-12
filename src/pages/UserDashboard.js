@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
-import { Briefcase, BookOpen, Clock, User } from 'lucide-react'; // Removed Settings
+import { Briefcase, BookOpen, Clock, User } from 'lucide-react';
 import '../styles/dashboard.css';
 
 // Dashboard sub-pages
@@ -15,19 +15,15 @@ const UserDashboard = () => {
   const { user } = useAuth();
   const location = useLocation();
 
-  // Example of a defensive check before using charAt
-  const username = user?.name || '';
-  const firstChar = username ? username.charAt(0).toUpperCase() : '';
-
   return (
     <div className="dashboard-container">
       <div className="dashboard-sidebar">
         <div className="user-info">
           <div className="user-avatar">
-            {firstChar}
+            {user?.username.charAt(0).toUpperCase()}
           </div>
           <div className="user-details">
-            <h3>{username}</h3>
+            <h3>{user?.username}</h3>
             <p>{user?.email}</p>
           </div>
         </div>
