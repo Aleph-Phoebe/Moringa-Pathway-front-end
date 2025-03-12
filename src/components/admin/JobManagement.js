@@ -1,25 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axiosInstance from '../../axiosConfig';
 
 const JobManagement = () => {
-  const [jobs, setJobs] = useState([
-    {
-      id: 1,
-      title: 'Software Engineer',
-      company: 'Tech Corp',
-      location: 'Remote',
-      type: 'Full-time',
-      posted: '2025-02-15',
-    },
-    {
-      id: 2,
-      title: 'Frontend Developer',
-      company: 'Web Solutions',
-      location: 'New York, NY',
-      type: 'Part-time',
-      posted: '2025-02-10',
-    },
-    // Add more job postings as needed
-  ]);
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    const fetchJobs = async () => {
+      try {
+        const response = await axiosInstance.get('/get_jobs');
+        setJobs(response.data);
+      } catch (error) {
+        console.error('Error fetching jobs:', error);
+      }
+    };
+
+    fetchJobs();
+  }, []);
+
+  const deleteJob = async (jobId) => {
+    try {
+      await axiosInstance.delete(`/delete_job/${jobId}`);
+      setJobs(jobs.filter((job) => job.id !== jobId));
+      alert('Job deleted successfully');
+    } catch (error) {
+      console.error('Error deleting job:', error);
+    }
+  };
 
   return (
     <div className="job-management">
@@ -30,12 +36,12 @@ const JobManagement = () => {
         {jobs.map((job) => (
           <div key={job.id} className="job-card">
             <h2>{job.title}</h2>
-            <p>{job.company}</p>
+            <p>{job.employer}</p>
             <p>{job.location}</p>
-            <p>{job.type}</p>
-            <p>Posted on: {job.posted}</p>
+            <p>{job.job_type}</p>
+            <p>Posted on: {new Date(job.date_posted).toLocaleDateString()}</p>
             <button>Edit</button>
-            <button>Delete</button>
+            <button onClick={() => deleteJob(job.id)}>Delete</button>
           </div>
         ))}
       </div>
