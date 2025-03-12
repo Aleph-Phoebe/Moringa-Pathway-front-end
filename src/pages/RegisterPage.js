@@ -1,14 +1,12 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
 import { useNavigate, Link } from 'react-router-dom'; // Import Link from react-router-dom
-import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/auth.css';
 import '../styles/resources.css';
 
 
 const RegisterPage = () => {
-  const [name, setName] = useState('');
+  const [username, setName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
@@ -29,7 +27,7 @@ const RegisterPage = () => {
     setLoading(true);
 
     try {
-      await register(name, phone , email, password);
+      await register(username, phone , email, password);
       navigate('/dashboard');
     } catch (err) {
       setError('Failed to create an account. Please try again.');
@@ -49,11 +47,11 @@ const RegisterPage = () => {
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
-            <label htmlFor="name">Full Name</label>
+            <label htmlFor="username">Full Name</label>
             <input
               type="text"
               id="name"
-              value={name}
+              value={username}
               onChange={(e) => setName(e.target.value)}
               required
               placeholder="Enter your full name"

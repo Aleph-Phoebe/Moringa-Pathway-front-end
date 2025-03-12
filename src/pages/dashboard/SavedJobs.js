@@ -38,11 +38,11 @@ const SavedJobs = () => {
         ) : (
           savedJobs.map((job) => (
             <div key={job.id} className="job-card">
-              <h2>{job.jobTitle}</h2>
-              <p>{job.company}</p>
+              <h2>{job.title}</h2>
+              <p>{job.employer}</p>
               <p>{job.location}</p>
-              <p>{job.type}</p>
-              <p>Date Saved: {job.dateSaved}</p>
+              <p>{job.job_type}</p>
+              <p>Date Saved: {new Date(job.date_posted).toLocaleDateString()}</p>
               <button>View Details</button>
               <button onClick={() => handleRemoveJob(job.id)}>Remove</button>
             </div>

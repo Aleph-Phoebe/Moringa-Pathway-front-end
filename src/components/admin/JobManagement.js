@@ -37,10 +37,10 @@ const JobManagement = () => {
         {jobs.map((job) => (
           <div key={job.id} className="job-card">
             <h2>{job.title}</h2>
-            <p>{job.company}</p>
+            <p>{job.employer}</p>
             <p>{job.location}</p>
-            <p>{job.type}</p>
-            <p>Posted on: {job.posted}</p>
+            <p>{job.job_type}</p>
+            <p>Posted on: {new Date(job.date_posted).toLocaleDateString()}</p>
             <button>Edit</button>
             <button onClick={() => deleteJob(job.id)}>Delete</button>
           </div>

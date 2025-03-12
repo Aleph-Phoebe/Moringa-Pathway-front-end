@@ -39,11 +39,11 @@ const JobApplications = () => {
         ) : (
           applications.map((application) => (
             <div key={application.id} className="application-card">
-              <h2>{application.jobTitle}</h2>
-              <p>{application.company}</p>
-              <p>{application.location}</p>
-              <p>{application.type}</p>
-              <p>Date Applied: {application.dateApplied}</p>
+              <h2>{application.job.title}</h2>
+              <p>{application.job.employer}</p>
+              <p>{application.job.location}</p>
+              <p>{application.job.job_type}</p>
+              <p>Date Applied: {new Date(application.application_date).toLocaleDateString()}</p>
               <button>View Details</button>
               <button onClick={() => handleRemoveApplication(application.id)}>Remove</button>
             </div>

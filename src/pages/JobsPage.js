@@ -10,11 +10,19 @@ import JobDetailsModal from '../components/JobDetailsModal';
  * @typedef {Object} Job
  * @property {number} id
  * @property {string} title
- * @property {string} company
+ * @property {string} description
  * @property {string} location
- * @property {string} type
- * @property {string} posted
- * @property {string} logo
+ * @property {number} salary_min
+ * @property {number} salary_max
+ * @property {string} job_type
+ * @property {string} skills_required
+ * @property {string} benefits
+ * @property {string} application_deadline
+ * @property {string} employer
+ * @property {string} employer_email
+ * @property {string} employer_phone
+ * @property {string} date_posted
+ * @property {boolean} is_active
  */
 
 const JobsPage = () => {
@@ -28,29 +36,53 @@ const JobsPage = () => {
     {
       id: 1,
       title: "Software Engineer",
-      company: "Tech Corp",
+      description: "We are looking for a skilled software engineer with expertise in Python, JavaScript, and cloud technologies.",
       location: "Remote",
-      type: "Full-time",
-      posted: "2025-02-15",
-      logo: "TC"
+      salary_min: 90000,
+      salary_max: 120000,
+      job_type: "Full-time",
+      skills_required: "Python, JavaScript, Cloud Computing",
+      benefits: "Health insurance, Paid vacation, Retirement plan",
+      application_deadline: "2025-04-05T03:53:06Z",
+      employer: "Tech Corp",
+      employer_email: "hr@techcorp.com",
+      employer_phone: "+1234567890",
+      date_posted: "2025-02-15T03:53:06Z",
+      is_active: true
     },
     {
       id: 2,
       title: "Frontend Developer",
-      company: "Web Solutions",
+      description: "We are looking for a skilled frontend developer with expertise in React and CSS.",
       location: "New York, NY",
-      type: "Part-time",
-      posted: "2025-02-10",
-      logo: "WS"
+      salary_min: 80000,
+      salary_max: 100000,
+      job_type: "Part-time",
+      skills_required: "React, CSS, JavaScript",
+      benefits: "Health insurance, Paid vacation, Retirement plan",
+      application_deadline: "2025-04-05T03:53:06Z",
+      employer: "Web Solutions",
+      employer_email: "hr@websolutions.com",
+      employer_phone: "+1234567890",
+      date_posted: "2025-02-10T03:53:06Z",
+      is_active: true
     },
     {
       id: 3,
       title: "Backend Developer",
-      company: "Data Systems",
+      description: "We are looking for a skilled backend developer with expertise in Node.js and databases.",
       location: "San Francisco, CA",
-      type: "Full-time",
-      posted: "2025-01-25",
-      logo: "DS"
+      salary_min: 85000,
+      salary_max: 110000,
+      job_type: "Full-time",
+      skills_required: "Node.js, Databases, JavaScript",
+      benefits: "Health insurance, Paid vacation, Retirement plan",
+      application_deadline: "2025-04-05T03:53:06Z",
+      employer: "Data Systems",
+      employer_email: "hr@datasystems.com",
+      employer_phone: "+1234567890",
+      date_posted: "2025-01-25T03:53:06Z",
+      is_active: true
     }
   ];
 
@@ -86,7 +118,7 @@ const JobsPage = () => {
 
   const filteredJobs = jobs.filter(job => 
     job.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    job.company.toLowerCase().includes(searchTerm.toLowerCase())
+    job.employer.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -178,21 +210,21 @@ const JobsPage = () => {
                 <div className="flex items-start space-x-4">
                   <div className="bg-gray-100 p-3 rounded-lg">
                     <div className="w-10 h-10 flex items-center justify-center">
-                      <span className="font-bold text-gray-500">{job.logo}</span>
+                      <span className="font-bold text-gray-500">{job.employer.charAt(0)}</span>
                     </div>
                   </div>
                   <div>
                     <h3 className="job-title">{job.title}</h3>
-                    <p className="job-company">{job.company}</p>
+                    <p className="job-company">{job.employer}</p>
                     <div className="job-details">
                       <span className="job-detail">
                         <MapPin size={14} className="mr-1" /> {job.location}
                       </span>
                       <span className="job-detail">
-                        <Clock size={14} className="mr-1" /> {job.type}
+                        <Clock size={14} className="mr-1" /> {job.job_type}
                       </span>
                       <span className="job-detail">
-                        <Star size={14} className="mr-1" /> Posted {job.posted}
+                        <Star size={14} className="mr-1" /> Posted {new Date(job.date_posted).toLocaleDateString()}
                       </span>
                     </div>
                   </div>
