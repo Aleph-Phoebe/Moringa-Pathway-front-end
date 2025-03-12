@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import config from '../config';
-import axios from 'axios';
+import axiosInstance from '../axiosConfig';
 
 const AuthContext = createContext();
 
@@ -19,17 +18,23 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
-      setUser(JSON.parse(storedUser));
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.error('Error parsing user data from local storage:', error);
+        localStorage.removeItem('user');
+      }
     }
     setLoading(false);
   }, []);
 
   const login = async (username, password) => {
     try {
-      const response = await axios.post(`${config.backendUrl}/login`, { username, password });
-      const loggedInUser = response.data.user;
-      setUser(loggedInUser);
-      localStorage.setItem('user', JSON.stringify(loggedInUser));
+      const response = await axiosInstance.post('/login', { username, password });
+      const { user, access_token } = response.data;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', access_token);
     } catch (error) {
       throw new Error('Invalid credentials');
     }
@@ -37,10 +42,11 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, phone, email, password) => {
     try {
-      const response = await axios.post(`${config.backendUrl}/register`, { username, phone, email, password });
-      const newUser = response.data.user;
-      setUser(newUser);
-      localStorage.setItem('user', JSON.stringify(newUser));
+      const response = await axiosInstance.post('/register', { username, phone, email, password });
+      const { user, access_token } = response.data;
+      setUser(user);
+      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('token', access_token);
     } catch (error) {
       throw new Error('Registration failed');
     }
@@ -49,6 +55,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   const value = {
