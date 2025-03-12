@@ -5,6 +5,7 @@ import { BookOpen, Lock } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import '../styles/resources.css';
 import ResourceDetailsModal from '../components/ResourceDetailsModal';
+import config from '../config';
 
 const ResourcesPage = () => {
   const { isPremium } = useAuth();
@@ -67,7 +68,7 @@ const ResourcesPage = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await axios.get(`${'https://jwt-1uab.onrender.com'}/get_job_resources`);
+        const response = await axios.get(`${config.backendUrl}/get_job_resources`);
         setResources([...demoData, ...response.data]);
       } catch (error) {
         console.error("Failed to fetch resources:", error);

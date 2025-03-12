@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import config from '../../config';
+import axiosInstance from '../../axiosConfig';
 
 const JobManagement = () => {
   const [jobs, setJobs] = useState([]);
@@ -8,7 +7,7 @@ const JobManagement = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`${config.backendUrl}/get_jobs`);
+        const response = await axiosInstance.get('/get_jobs');
         setJobs(response.data);
       } catch (error) {
         console.error('Error fetching jobs:', error);
@@ -20,7 +19,7 @@ const JobManagement = () => {
 
   const deleteJob = async (jobId) => {
     try {
-      await axios.delete(`${config.backendUrl}/delete_job/${jobId}`);
+      await axiosInstance.delete(`/delete_job/${jobId}`);
       setJobs(jobs.filter((job) => job.id !== jobId));
       alert('Job deleted successfully');
     } catch (error) {
