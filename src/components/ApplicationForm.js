@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import './applicationForm.css';
 
 const ApplicationForm = () => {
   const { jobId } = useParams();
@@ -44,51 +45,53 @@ const ApplicationForm = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2>Apply for Job</h2>
-      <form onSubmit={handleSubmit} encType="multipart/form-data">
-        <div>
-          <label>Full Name:</label>
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Resume (PDF only):</label>
-          <input
-            type="file"
-            name="resume"
-            accept=".pdf"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Cover Letter (PDF only):</label>
-          <input
-            type="file"
-            name="coverLetter"
-            accept=".pdf"
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Submit Application</button>
-      </form>
+    <div className="application-form-wrapper">
+      <div className="application-form-container">
+        <h2>Apply for Job</h2>
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div>
+            <label>Full Name:</label>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Resume (PDF only):</label>
+            <input
+              type="file"
+              name="resume"
+              accept=".pdf"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div>
+            <label>Cover Letter (PDF only):</label>
+            <input
+              type="file"
+              name="coverLetter"
+              accept=".pdf"
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <button type="submit">Submit Application</button>
+        </form>
+      </div>
     </div>
   );
 };
