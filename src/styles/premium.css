@@ -24,8 +24,8 @@
     margin: 10px 0;
     padding: 15px;
     border-radius: 8px;
-    background-color: #0f0686;
-    color: #333;
+    background-color: #282173;
+    color: #f60a0a;
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -70,5 +70,18 @@
   
   .close-button:hover {
     background-color: #0056b3;
+  }
+  
+  .resource-content {
+    white-space: pre-wrap;
+    text-align: left;
+    margin: 10px 0;
+    font-size: 16px;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 300px; /* Adjust height as needed */
+    overflow-y: auto;
   }
   
