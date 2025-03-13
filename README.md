@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+**Moringa Pathway** 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a platform that is designed to support graduates who are actively searching for jobs. It's intention is to create connections in the job market which also empowers career growth.
 
-## Available Scripts
+**Features**
+🎯Job Opportunities:
+Job search on listings.
+Save jobs.
+Enable one to apply throught the platform.
+View details about the job.
 
-In the project directory, you can run:
+📊 Application Tracking:
+Track your applications.
+Manage jobs.
+Users can also view jobs applied
 
-### `npm start`
+📚 Career Resources:
+This will be accessible to premium users after a payment of #5000 you are given more assistance and guideance.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+💎 Premium Content:
+Access exclusive resources for your career growth and also job success.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🛠️ Admin Dashboard:
+Manage users, job, career resources and users whether exclusive or premium.
 
-### `npm test`
+**Pre-requisites**
+Please have the following installed for use:
+-Node.js and npm
+-Python 3.9+
+-PostgreSQL
+-React
+-Flask
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Installation**
+Clone the repository
 
-### `npm run build`
+git clone [(https://github.com/Aleph-Phoebe/Moringa-Pathway-front-end.git)](https://github.com/Aleph-Phoebe/Moringa-Pathway-front-end.git)
+cd moringa-pathway
+cd (your directory)
+npm install
+npm start
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Acknowledgements**
+Moringa School and the Technical Mentor for the inspiration and support.
+Contributors involved in the project.
