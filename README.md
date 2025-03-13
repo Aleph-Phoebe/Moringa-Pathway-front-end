@@ -66,13 +66,19 @@ If you would like to fork this repo FOR USE LOCALLY Fork it from
    cd moringapathway]
 
    (https://github.com/DestinyG-beep/moringapathway.git)
+   ```
    
- 
 
-2  Install dependencies:
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-3  Start the development server:
-
+4.  Start the development server:
+   ```bash
+   npm start
+   ```
+   
 ## Application Functions
 User Authentication
 # Login: Users can log in to access their personalized dashboard.
