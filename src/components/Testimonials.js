@@ -1,5 +1,8 @@
 import React from "react";
 import styled from "styled-components";
+import AlephImage from "../assets/Aleph.jpg.jpg";
+import FaithImage from "../assets/Faith.jpg.jpg";
+import MarkImage from "../assets/Mark.jpg.jpg";
 
 const testimonials = [
   {
@@ -7,24 +10,24 @@ const testimonials = [
     name: "Aleph",
     role: "Happy Client",
     text: "Amazing services",
-    review: "The quick brown fox jumps over the lazy fox.",
-    image: "/assets/Aleph.jpg",
+    review: "The services provided were exceptional and exceeded my expectations.",
+    image: AlephImage,
   },
   {
     id: 2,
     name: "Faith",
     role: "Happy Client",
     text: "Awesome services",
-    review: "The quick brown fox jumps over the lazy fox.",
-    image: "/assets/Faith.jpg",
+    review: "I am extremely satisfied with the quality and professionalism.",
+    image: FaithImage,
   },
   {
     id: 3,
     name: "Mark",
     role: "Easy navigation",
     text: "Awesome, thank you!",
-    review: "The quick brown fox jumps over the lazy fox.",
-    image: "/assets/Mark.jpg",
+    review: "The platform is user-friendly and easy to navigate.",
+    image: MarkImage,
   },
 ];
 

@@ -93,7 +93,7 @@ const JobsPage = () => {
   useEffect(() => {
     const fetchJobs = async () => {
       try {
-        const response = await axios.get(`${config.backendUrl}/get_jobs`);
+        const response = await axios.get(`${config.backendUrl}/get_jobs_resources`);
         setJobs([...demoJobs, ...response.data]);
       } catch (error) {
         console.error("Failed to fetch jobs:", error);
