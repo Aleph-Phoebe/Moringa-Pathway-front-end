@@ -135,3 +135,13 @@ Admins can manage user accounts. They can view, edit, and delete user accounts, 
 
 ## Conclusion
 The Moringa Pathway Front-End application provides a comprehensive platform for users to manage their job applications, access valuable resources, and more. With a secure authentication system, detailed profile management, extensive job management features, and premium content for subscribed users, the application offers a robust solution for job seekers and professionals. Admins can efficiently manage user accounts and ensure the application is running smoothly. The application is built using modern technologies such as React, Redux Toolkit, Axios, and Styled Components, ensuring a high-quality user experience.
+
+MIT LICENSE
+
+© 2025 Aleph Phoebe & Destiny Gakenga
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
