@@ -2,6 +2,9 @@
 
 This project is the front-end for the Moringa Pathway application, which helps users manage job applications, access resources, and more. The project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## screenshot
+![assets/moringapathway.png](assets/moringapathway.png)
+
 ## Technologies Used
 
 - React
